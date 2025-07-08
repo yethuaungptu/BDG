@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Sustainable Living Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/aos.css" />
+    <link rel="stylesheet" href="/stylesheets/swiper-bundle.min.css" />
+    <script src="/javascripts/swiper-bundle.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ./partial/navbar.ejs %>
+
+    <div class="aos-all">
+      <div class="swiper" data-aos="fade-up">
+        <!-- Additional required wrapper -->
+
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide">
+            <div class="w-full h-[50vh] lg:h-[80vh]">
+              <img src="/images/slider-1.jpg" class="w-full object-cover" />
+              <div
+                class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
+              >
+                <h2 class="text-3xl lg:text-5xl font-bold drop-shadow-md">
+                  Test Title
+                </h2>
+                <p class="text-sm lg:text-lg max-w-md drop-shadow-md">
+                  Test Description
+                </p>
+                <a href="/" class="btn btn-primary">Check Somethings</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="w-full h-[50vh] lg:h-[80vh]">
+              <img src="/images/slider-2.jpg" class="w-full object-cover" />
+              <div
+                class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
+              >
+                <h2 class="text-3xl lg:text-5xl font-bold drop-shadow-md">
+                  Test Title
+                </h2>
+                <p class="text-sm lg:text-lg max-w-md drop-shadow-md">
+                  Test Description
+                </p>
+                <a href="/" class="btn btn-primary">Check Somethings</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="w-full h-[50vh] lg:h-[80vh]">
+              <img src="/images/slider-3.jpg" class="w-full object-cover" />
+              <div
+                class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
+              >
+                <h2 class="text-3xl lg:text-5xl font-bold drop-shadow-md">
+                  Test Title
+                </h2>
+                <p class="text-sm lg:text-lg max-w-md drop-shadow-md">
+                  Test Description
+                </p>
+                <a href="/" class="btn btn-primary">Check Somethings</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- If we need pagination -->
+        <!-- <div class="swiper-pagination"></div> -->
+
+        <!-- If we need navigation buttons -->
+        <!-- <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div> -->
+
+        <!-- If we need scrollbar -->
+        <!-- <div class="swiper-scrollbar"></div> -->
+      </div>
+      <div class="swiper2 mt-2" data-aos="fade-up">
+        <!-- Additional required wrapper -->
+        <div
+          class="text-center bg-blue-200 text-3xl lg:text-5xl font-thin italic"
+        >
+          User Feedback
+        </div>
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide">
+            <div class="hero bg-blue-200 h-[50vh]">
+              <blockquote
+                class="p-6 border-l-4 border-primary bg-base-100 shadow-md rounded-lg"
+              >
+                <p class="text-lg italic text-gray-700">
+                  "Education is the most powerful weapon which you can use to
+                  change the world."
+                </p>
+                <footer class="mt-4 text-sm text-gray-500 text-right">
+                  — Nelson Mandela
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="hero bg-blue-200 h-[50vh]">
+              <blockquote
+                class="p-6 border-l-4 border-primary bg-base-100 shadow-md rounded-lg"
+              >
+                <p class="text-lg italic text-gray-700">
+                  "Education is the most powerful weapon which you can use to
+                  change the world."
+                </p>
+                <footer class="mt-4 text-sm text-gray-500 text-right">
+                  — Nelson Mandela
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="hero bg-blue-200 h-[50vh]">
+              <blockquote
+                class="p-6 border-l-4 border-primary bg-base-100 shadow-md rounded-lg"
+              >
+                <p class="text-lg italic text-gray-700">
+                  "Education is the most powerful weapon which you can use to
+                  change the world."
+                </p>
+                <footer class="mt-4 text-sm text-gray-500 text-right">
+                  — Nelson Mandela
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+          ...
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination2"></div>
+      </div>
+    </div>
+    <% include ./partial/footer.ejs %>
+  </body>
+  <script src="/javascripts/aos.js"></script>
+  <script>
+    AOS.init({
+      mirror: true,
+    });
+    const swiper = new Swiper(".swiper", {
+      // Optional parameters
+      direction: "horizontal",
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+      },
+      autoplay: {
+        delay: 5000,
+      },
+    });
+
+    const swiper2 = new Swiper(".swiper2", {
+      // Optional parameters
+      direction: "horizontal",
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+      },
+      autoplay: {
+        delay: 3000,
+      },
+      scrollbar: {
+        el: ".swiper-scrollbar",
+      },
+    });
+  </script>
+</html>
