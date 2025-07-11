@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/aos.css" />
+    <link rel="stylesheet" href="/stylesheets/swiper-bundle.min.css" />
+    <script src="/javascripts/swiper-bundle.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ./partial/navbar.ejs %>
+
+    <div class="aos-all">
+      <div class="flex items-center justify-center min-h-screen">
+        <div class="card w-full max-w-sm shadow-2xl bg-base-100">
+          <div class="card-body">
+            <h2 class="text-2xl font-bold text-center mb-4">Register</h2>
+
+            <!-- Google Button -->
+            <a href="http://localhost:3000/auth/google">
+              <button class="btn btn-outline btn-primary w-full mb-4">
+                <i class="fab fa-google mr-2"></i> Continue with Google
+              </button>
+            </a>
+
+            <div class="divider">OR</div>
+
+            <!-- Manual Registration Form -->
+            <form action="http://localhost:3000/register" method="POST">
+              <div class="form-control mb-3">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  class="input input-bordered w-full"
+                  required
+                />
+              </div>
+              <div class="form-control mb-3">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  class="input input-bordered w-full"
+                  required
+                />
+              </div>
+              <div class="form-control mb-4">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  class="input input-bordered w-full"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-full">
+                Register
+              </button>
+            </form>
+
+            <p class="text-center mt-4 text-sm">
+              Already have an account?
+              <a href="/login" class="link link-primary">Login here</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% include ./partial/footer.ejs %>
+  </body>
+  <script src="/javascripts/aos.js"></script>
+</html>

@@ -16,11 +16,11 @@
             d="M4 6h16M4 12h8m-8 6h16"
           />
         </svg>
-        <a class="btn btn-ghost text-xl">BDG</a>
+        <a class="btn btn-ghost text-xl text-secondary">BDG</a>
       </div>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content text-primary bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+        class="menu menu-sm dropdown-content text-secondary bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
       >
         <li><a href="/"><%= __('nav.home') %></a></li>
         <li><a href="/gsp"><%= __('nav.gsp') %></a></li>
@@ -34,13 +34,13 @@
           </a>
         </li>
       </ul>
-      <a class="btn btn-ghost btn-primary text-xl hidden lg:flex"
+      <a class="btn btn-ghost btn-primary text-xl hidden lg:flex text-secondary"
         >Buddhism Dhamma Guide
       </a>
     </div>
   </div>
   <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
+    <ul class="menu menu-horizontal text-secondary px-1">
       <li><a href="/"><%= __('nav.home') %></a></li>
       <li><a href="/gsp"><%= __('nav.gsp') %></a></li>
       <li><a href="/meditate"><%= __('nav.meditate') %></a></li>
@@ -55,7 +55,9 @@
     </ul>
   </div>
   <div class="navbar-end">
-    <a href="/login" class="btn btn-outline btn-ghost btn-primary"
+    <a
+      href="/login"
+      class="btn btn-outline text-secondary btn-ghost btn-primary"
       ><%= __('nav.account') %></a
     >
   </div>

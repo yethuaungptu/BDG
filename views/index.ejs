@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html data-theme="BDG">
   <head>
-    <title>Sustainable Living Guide</title>
+    <title>Buddhism Dhamma Guide</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link rel="stylesheet" href="/stylesheets/aos.css" />
     <link rel="stylesheet" href="/stylesheets/swiper-bundle.min.css" />
@@ -19,7 +19,7 @@
         <div class="swiper-wrapper">
           <!-- Slides -->
           <div class="swiper-slide">
-            <div class="w-full h-[50vh] lg:h-[80vh]">
+            <div class="w-full h-[30vh] lg:h-[80vh]">
               <img src="/images/slider-1.jpg" class="w-full object-cover" />
               <div
                 class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="w-full h-[50vh] lg:h-[80vh]">
+            <div class="w-full h-[30vh] lg:h-[80vh]">
               <img src="/images/slider-2.jpg" class="w-full object-cover" />
               <div
                 class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="w-full h-[50vh] lg:h-[80vh]">
+            <div class="w-full h-[30vh] lg:h-[80vh]">
               <img src="/images/slider-3.jpg" class="w-full object-cover" />
               <div
                 class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
@@ -67,74 +67,178 @@
             </div>
           </div>
         </div>
-        <!-- If we need pagination -->
-        <!-- <div class="swiper-pagination"></div> -->
-
-        <!-- If we need navigation buttons -->
-        <!-- <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div> -->
-
-        <!-- If we need scrollbar -->
-        <!-- <div class="swiper-scrollbar"></div> -->
       </div>
-      <div class="swiper2 mt-2" data-aos="fade-up">
-        <!-- Additional required wrapper -->
-        <div
-          class="text-center bg-blue-200 text-3xl lg:text-5xl font-thin italic"
-        >
-          User Feedback
+      <div class="bg-blue-200 px-4" data-aos="fade-up">
+        <div class="text-center text-3xl lg:text-3xl font-thin italic p-2">
+          <%= __('featured')+ ' '+ __('nav.gsp') %>
         </div>
-        <div class="swiper-wrapper">
-          <!-- Slides -->
-          <div class="swiper-slide">
-            <div class="hero bg-blue-200 h-[50vh]">
-              <blockquote
-                class="p-6 border-l-4 border-primary bg-base-100 shadow-md rounded-lg"
-              >
-                <p class="text-lg italic text-gray-700">
-                  "Education is the most powerful weapon which you can use to
-                  change the world."
-                </p>
-                <footer class="mt-4 text-sm text-gray-500 text-right">
-                  — Nelson Mandela
-                </footer>
-              </blockquote>
+        <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
             </div>
           </div>
-          <div class="swiper-slide">
-            <div class="hero bg-blue-200 h-[50vh]">
-              <blockquote
-                class="p-6 border-l-4 border-primary bg-base-100 shadow-md rounded-lg"
-              >
-                <p class="text-lg italic text-gray-700">
-                  "Education is the most powerful weapon which you can use to
-                  change the world."
-                </p>
-                <footer class="mt-4 text-sm text-gray-500 text-right">
-                  — Nelson Mandela
-                </footer>
-              </blockquote>
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
             </div>
           </div>
-          <div class="swiper-slide">
-            <div class="hero bg-blue-200 h-[50vh]">
-              <blockquote
-                class="p-6 border-l-4 border-primary bg-base-100 shadow-md rounded-lg"
-              >
-                <p class="text-lg italic text-gray-700">
-                  "Education is the most powerful weapon which you can use to
-                  change the world."
-                </p>
-                <footer class="mt-4 text-sm text-gray-500 text-right">
-                  — Nelson Mandela
-                </footer>
-              </blockquote>
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
             </div>
           </div>
-          ...
         </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination2"></div>
+      </div>
+      <div class="bg-green-200 px-4" data-aos="fade-up">
+        <div class="text-center text-3xl lg:text-3xl font-thin italic p-2">
+          <%= __('featured')+ ' '+ __('nav.meditate') %>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-yellow-200 px-4" data-aos="fade-up">
+        <div class="text-center text-3xl lg:text-3xl font-thin italic p-2">
+          <%= __('featured')+ ' '+ __('nav.resolution') %>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-cyan-200 px-4" data-aos="fade-up">
+        <div class="text-center text-3xl lg:text-3xl font-thin italic p-2">
+          <%= __('featured')+ ' '+ __('nav.dharma') %>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+          <div class="card w-full bg-base-100 card-sm shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Test</h2>
+              <p>
+                A card component has a figure, a body part, and inside body
+                there are title and actions parts
+              </p>
+              <div class="justify-end card-actions">
+                <button class="btn btn-primary">See More</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <% include ./partial/footer.ejs %>
@@ -153,21 +257,6 @@
       },
       autoplay: {
         delay: 5000,
-      },
-    });
-
-    const swiper2 = new Swiper(".swiper2", {
-      // Optional parameters
-      direction: "horizontal",
-      loop: true,
-      pagination: {
-        el: ".swiper-pagination",
-      },
-      autoplay: {
-        delay: 3000,
-      },
-      scrollbar: {
-        el: ".swiper-scrollbar",
       },
     });
   </script>

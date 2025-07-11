@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "dashboard": "Dashboard",
     "gsp": "Gatha Sutta and Pray",
     "meditate": "Meditate",
     "resolution": "Resolution",
@@ -8,5 +9,6 @@
     "abhidhamma": "Abhidhamma & Old Questions",
     "account": "Login/Register",
     "lang": "မြန်မာ"
-  }
+  },
+  "featured": "Featured"
 }
