@@ -601,24 +601,6 @@
       }
     }
   }
-  .collapse-arrow {
-    > .collapse-title:after {
-      position: absolute;
-      display: block;
-      height: 0.5rem;
-      width: 0.5rem;
-      transform: translateY(-100%) rotate(45deg);
-      transition-property: all;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 0.2s;
-      top: 1.9rem;
-      inset-inline-end: 1.4rem;
-      content: "";
-      transform-origin: 75% 75%;
-      box-shadow: 2px 2px;
-      pointer-events: none;
-    }
-  }
   .dropdown {
     position: relative;
     display: inline-block;
@@ -952,18 +934,6 @@
     &:is(details) summary {
       outline: none;
     }
-  }
-  .collapse-content {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    visibility: hidden;
-    grid-column-start: 1;
-    grid-row-start: 2;
-    min-height: 0;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    cursor: unset;
-    transition: visibility 0.2s, padding 0.2s ease-out, background-color 0.2s ease-out;
   }
   .validator-hint {
     visibility: hidden;
@@ -1728,16 +1698,6 @@
     &:has(> :checked) {
       outline: 2px solid currentColor;
     }
-  }
-  .collapse-title {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    position: relative;
-    width: 100%;
-    padding: 1rem;
-    padding-inline-end: 3rem;
-    min-height: 1lh;
-    transition: background-color 0.2s ease-out;
   }
   .menu-horizontal {
     display: inline-flex;
@@ -2910,10 +2870,6 @@
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
   }
-  .text-xs {
-    font-size: var(--text-xs);
-    line-height: var(--tw-leading, var(--text-xs--line-height));
-  }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
@@ -2959,9 +2915,6 @@
   }
   .text-white {
     color: var(--color-white);
-  }
-  .uppercase {
-    text-transform: uppercase;
   }
   .italic {
     font-style: italic;
@@ -3161,21 +3114,6 @@
   .lg\:h-\[80vh\] {
     @media (width >= 64rem) {
       height: 80vh;
-    }
-  }
-  .lg\:w-3\/4 {
-    @media (width >= 64rem) {
-      width: calc(3/4 * 100%);
-    }
-  }
-  .lg\:w-\[34\] {
-    @media (width >= 64rem) {
-      width: 34;
-    }
-  }
-  .lg\:w-\[200vh\] {
-    @media (width >= 64rem) {
-      width: 200vh;
     }
   }
   .lg\:grid-cols-2 {
