@@ -10,5 +10,8 @@
     "account": "Login/Register",
     "lang": "မြန်မာ"
   },
+  "create": "Create",
+  "list": "List",
+  "update": "Update",
   "featured": "Featured"
 }

@@ -12,8 +12,23 @@
   <body>
     <% include ./partial/navbar.ejs %>
 
-    <div class="aos-all h-screen">
-      <div class="text-lg text-center"><%= __('nav.gsp') %></div>
+    <div class="aos-all min-h-screen">
+      <div class="text-xl text-center my-3"><%= __('nav.gsp') %></div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+        <% for(var i = 0; i < gsps.length; i++){%>
+        <div class="card w-full bg-base-100 card-sm shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title"><%= gsps[i].titleMM %></h2>
+            <p><%= gsps[i].category %></p>
+            <div class="justify-end card-actions">
+              <a href="/gsp/detail/<%= gsps[i]._id %>" class="btn btn-primary"
+                >See More</a
+              >
+            </div>
+          </div>
+        </div>
+        <%}%>
+      </div>
     </div>
     <% include ./partial/footer.ejs %>
   </body>

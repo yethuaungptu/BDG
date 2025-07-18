@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/aos.css" />
+    <link rel="stylesheet" href="/stylesheets/swiper-bundle.min.css" />
+    <script src="/javascripts/swiper-bundle.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ./partial/navbar.ejs %>
+
+    <div class="aos-all min-h-screen">
+      <!-- name of each tab group should be unique -->
+      <div class="tabs tabs-border m-3">
+        <input
+          type="radio"
+          name="my_tabs_6"
+          class="tab"
+          aria-label="Myanmar"
+          checked="checked"
+        />
+        <div class="tab-content bg-base-100 border-base-300 p-6">
+          <div class="text-2xl font-bold"><%= Meditate.title %></div>
+          <div class="text-lg font-semibold italic"><%= Meditate.guider %></div>
+          <div id="mmContent" class="m-2 px-2 overflow-auto"></div>
+        </div>
+
+        <input type="radio" name="my_tabs_6" class="tab" aria-label="English" />
+        <div class="tab-content bg-base-100 border-base-300 p-6">
+          <div class="text-2xl font-bold"><%= gsp.titleEN %></div>
+          <div class="text-lg font-semibold italic"><%= gsp.category %></div>
+          <div id="enContent" class="m-2 px-2"></div>
+        </div>
+      </div>
+    </div>
+    <% include ./partial/footer.ejs %>
+  </body>
+  <script src="/javascripts/aos.js"></script>
+  <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function () {
+      const mmVal = "<div><%- gsp.mmContent %></div>";
+      const enVal = "<div><%- gsp.enContent %></div>";
+      $("#mmContent").html(mmVal);
+      $("#enContent").html(enVal);
+    });
+  </script>
+</html>

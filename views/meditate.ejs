@@ -12,8 +12,25 @@
   <body>
     <% include ./partial/navbar.ejs %>
 
-    <div class="aos-all h-screen">
+    <div class="aos-all min-h-screen">
       <div class="text-lg text-center"><%= __('nav.meditate') %></div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+        <% for(var i = 0; i < meditates.length; i++){%>
+        <div class="card w-full bg-base-100 card-sm shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title"><%= meditates[i].title %></h2>
+            <p><%= meditates[i].guider %></p>
+            <div class="justify-end card-actions">
+              <a
+                href="/meditate/detail/<%= meditates[i]._id %>"
+                class="btn btn-primary"
+                >See More</a
+              >
+            </div>
+          </div>
+        </div>
+        <%}%>
+      </div>
     </div>
     <% include ./partial/footer.ejs %>
   </body>

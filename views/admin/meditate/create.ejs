@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide Admin</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="drawer lg:drawer-open">
+        <input id="left-sidebar-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+          <div class="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+            <div class="flex-1">
+              <label
+                for="left-sidebar-drawer"
+                class="btn btn-primary drawer-button lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="h-5 inline-block w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  ></path>
+                </svg>
+              </label>
+              <h1 class="text-2xl font-semibold ml-2"></h1>
+            </div>
+          </div>
+          <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
+            <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+              <div class="text-xl font-semibold">
+                <%= __('nav.meditate') %> <%= __('create') %>
+              </div>
+              <div class="divider mt-2"></div>
+              <div class="h-full w-full pb-6 bg-base-100">
+                <form
+                  class="p-6 rounded-xl shadow space-y-6"
+                  action="/admin/meditate/create"
+                  method="post"
+                >
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="form-control w-full undefined -mb-7">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Title
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="title"
+                        placeholder="Meditate Title"
+                        class="input input-bordered w-full validator"
+                        required
+                        minlength="3"
+                        title="Only letters, numbers or dash"
+                      />
+                      <p class="validator-hint">
+                        Must be at least 3 characters
+                      </p>
+                    </div>
+                    <div class="form-control w-full undefined -mb-7">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Guider
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="guider"
+                        placeholder="Meditate Guider"
+                        class="input input-bordered w-full validator"
+                        required
+                        minlength="3"
+                        title="Only letters, numbers or dash"
+                      />
+                      <p class="validator-hint">
+                        Must be at least 3 characters
+                      </p>
+                    </div>
+                    <div class="form-control w-full undefined -mb-3">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Level
+                        </span>
+                      </label>
+                      <br />
+                      <select
+                        class="select validator w-full"
+                        name="level"
+                        required
+                      >
+                        <option value="အခြေခံအဆင့်">အခြေခံအဆင့်</option>
+                        <option value="အလယ်အလတ်အဆင့်">အလယ်အလတ်အဆင့်</option>
+                        <option value="ကျွမ်းကျင်အဆင့်">ကျွမ်းကျင်အဆင့်</option>
+                      </select>
+                      <p class="validator-hint">Impact Level is required</p>
+                    </div>
+                    <div class="form-control w-full undefined -mb-3">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Media Type
+                        </span>
+                      </label>
+                      <br />
+                      <select
+                        class="select validator w-full"
+                        name="mediaType"
+                        required
+                      >
+                        <option value="MP3">MP3</option>
+                        <option value="MP4">MP4</option>
+                      </select>
+                      <p class="validator-hint">Media Type is required</p>
+                    </div>
+                    <div class="form-control w-full undefined -mb-7">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Media URL
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="mediaUrl"
+                        placeholder="Media URl"
+                        class="input input-bordered w-full validator"
+                        required
+                        title="Only letters, numbers or dash"
+                      />
+                      <p class="validator-hint">Must be valid URL</p>
+                    </div>
+                    <div class="form-control w-full undefined">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Duration
+                        </span>
+                      </label>
+                      <div class="flex gap-2">
+                        <input
+                          type="number"
+                          name="minutes"
+                          placeholder="Minutes"
+                          min="0"
+                          required
+                          class="input input-bordered w-1/2"
+                        />
+                        <input
+                          type="number"
+                          name="seconds"
+                          placeholder="Seconds"
+                          min="0"
+                          max="59"
+                          required
+                          class="input input-bordered w-1/2"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="form-control w-full undefined -mb-3 col-span-full"
+                    >
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Description
+                        </span>
+                      </label>
+                      <textarea
+                        name="description"
+                        class="textarea textarea-bordered w-full validator"
+                        required
+                        minlength="15"
+                      ></textarea>
+                      <p class="validator-hint">
+                        Must be at least 15 characters
+                      </p>
+                    </div>
+                  </div>
+                  <div class="divider"></div>
+                  <div class="grid grid-cols-1">
+                    <div class="w-full undefined">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Steps
+                        </span>
+                      </label>
+                      <div
+                        id="steps-container"
+                        class="space-y-4 grid grid-cols-1 md:grid-cols-2"
+                      ></div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary mt-2"
+                        onclick="addStep()"
+                      >
+                        Add Step
+                      </button>
+                    </div>
+                  </div>
+                  <div class="mt-16">
+                    <button type="submit" class="btn btn-primary float-right">
+                      Add
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="h-16"></div>
+          </main>
+        </div>
+        <% include ../../partial/adminDrawer %>
+      </div>
+    </div>
+  </body>
+  <script>
+    let stepCount = 0;
+
+    function addStep() {
+      const container = document.getElementById("steps-container");
+
+      const stepDiv = document.createElement("div");
+      stepDiv.className = "border p-4 rounded bg-base-200 relative";
+      stepDiv.setAttribute("data-step-id", stepCount);
+
+      stepDiv.innerHTML = `
+      <label class="label">Step Number</label>
+      <input type="number" name="steps[${stepCount}][number]" class="input input-bordered w-full mb-2" placeholder="Step Number" required />
+
+      <label class="label">Description</label>
+      <input type="text" name="steps[${stepCount}][description]" class="input input-bordered w-full" placeholder="Step Description" required />
+
+      <button type="button" class="btn btn-error btn-sm mt-3" onclick="removeStep(${stepCount})">Remove Step</button>
+    `;
+      container.appendChild(stepDiv);
+      stepCount++;
+    }
+    function removeStep(id) {
+      const stepDiv = document.querySelector(`[data-step-id="${id}"]`);
+      if (stepDiv) {
+        stepDiv.remove();
+      }
+    }
+  </script>
+</html>

@@ -73,42 +73,21 @@
           <%= __('featured')+ ' '+ __('nav.gsp') %>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+          <% for(var i = 0; i < featuredGsp.length; i++){%>
           <div class="card w-full bg-base-100 card-sm shadow-sm">
             <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
+              <h2 class="card-title"><%= featuredGsp[i].titleMM %></h2>
+              <p><%= featuredGsp[i].category %></p>
               <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
+                <a
+                  href="/gsp/detail/<%= featuredGsp[i]._id %>"
+                  class="btn btn-primary"
+                  >See More</a
+                >
               </div>
             </div>
           </div>
-          <div class="card w-full bg-base-100 card-sm shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
-              <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
-              </div>
-            </div>
-          </div>
-          <div class="card w-full bg-base-100 card-sm shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
-              <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
-              </div>
-            </div>
-          </div>
+          <%}%>
         </div>
       </div>
       <div class="bg-green-200 px-4" data-aos="fade-up">
@@ -116,42 +95,21 @@
           <%= __('featured')+ ' '+ __('nav.meditate') %>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+          <% for(var i = 0; i < featuredMeditate.length; i++){%>
           <div class="card w-full bg-base-100 card-sm shadow-sm">
             <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
+              <h2 class="card-title"><%= featuredMeditate[i].title %></h2>
+              <p><%= featuredMeditate[i].guider %></p>
               <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
+                <a
+                  href="/meditate/detail/<%= featuredMeditate[i]._id %>"
+                  class="btn btn-primary"
+                  >See More</a
+                >
               </div>
             </div>
           </div>
-          <div class="card w-full bg-base-100 card-sm shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
-              <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
-              </div>
-            </div>
-          </div>
-          <div class="card w-full bg-base-100 card-sm shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
-              <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
-              </div>
-            </div>
-          </div>
+          <%}%>
         </div>
       </div>
       <div class="bg-yellow-200 px-4" data-aos="fade-up">

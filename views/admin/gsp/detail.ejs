@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide Admin</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="drawer lg:drawer-open">
+        <input id="left-sidebar-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+          <div class="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+            <div class="flex-1">
+              <label
+                for="left-sidebar-drawer"
+                class="btn btn-primary drawer-button lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="h-5 inline-block w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  ></path>
+                </svg>
+              </label>
+              <h1 class="text-2xl font-semibold ml-2"></h1>
+            </div>
+          </div>
+          <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
+            <div
+              class="max-w-full mx-auto bg-base-100 shadow-xl rounded-xl p-6 space-y-6"
+            >
+              <!-- Blog Title -->
+              <h1 class="text-3xl font-bold text-primary">
+                <%= gsp.titleMM %> <%= gsp.titleEN ? '('+gsp.titleEN+')': '' %>
+              </h1>
+              <div class="divider"></div>
+              <div class="text-xl text-center"><%= gsp.category %></div>
+              <div class="grid grid-cols-1 lg:grid-cols-2">
+                <div id="mmContent" class="border mx-2 rounded-lg px-2"></div>
+                <div id="enContent" class="border mx-2 rounded-lg px-2"></div>
+              </div>
+              <div class="divider"></div>
+              <div class="card-actions justify-end">
+                <% if(gsp.isFeatured){%>
+                <button class="btn btn-warning" onclick="changeFeature(false);">
+                  Remove featured
+                </button>
+                <%}else{%>
+                <button class="btn btn-warning" onclick="changeFeature(true);">
+                  Set as featured
+                </button>
+                <%}%>
+                <button class="btn btn-error" onclick="deleteGSP()">
+                  Delete
+                </button>
+                <a class="btn btn-info" href="/admin/gsp/update/<%= gsp._id %>"
+                  >Update</a
+                >
+              </div>
+            </div>
+            <div class="h-16"></div>
+          </main>
+        </div>
+        <% include ../../partial/adminDrawer %>
+      </div>
+    </div>
+  </body>
+  <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function () {
+      const mmVal =
+        "<div><div class='text-lg text-center'>MM Content</div><%- gsp.mmContent %></div>";
+      const enVal =
+        "<div><div class='text-lg text-center'>EN Content</div><%- gsp.enContent %></div>";
+      $("#mmContent").html(mmVal);
+      $("#enContent").html(enVal);
+    });
+    function changeFeature(isFeatured) {
+      $.ajax({
+        url: "/admin/gsp/feature",
+        type: "POST",
+        data: {
+          gspId: "<%= gsp._id %>",
+          isFeatured: isFeatured,
+        },
+        success: function (response) {
+          if (response.status === "success") {
+            window.location.reload();
+          } else {
+            alert("Error updating feature status.");
+          }
+        },
+        error: function () {
+          alert("Error connecting to the server.");
+        },
+      });
+    }
+    function deleteGSP() {
+      if (!confirm("Are you sure you want to delete this?")) {
+        return;
+      }
+      $.ajax({
+        url: "/admin/gsp/delete",
+        type: "POST",
+        data: {
+          gspId: "<%= gsp._id %>",
+        },
+        success: function (response) {
+          if (response.status === "success") {
+            location.href = "/admin/gsp";
+          } else {
+            alert("Error deleting tip");
+          }
+        },
+        error: function () {
+          alert("Error connecting to the server.");
+        },
+      });
+    }
+  </script>
+</html>
