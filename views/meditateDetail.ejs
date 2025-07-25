@@ -61,8 +61,10 @@
           </audio>
           <%}%>
           <div class="card-body">
-            <div class="grid grid-cols-1 lg:grid-cols-3">
-              <h2 class="card-title">Guider : <%= meditate.guider %></h2>
+            <div class="grid grid-cols-1 lg:grid-cols-5">
+              <h2 class="card-title lg:col-span-3">
+                Guider : <%= meditate.guider %>
+              </h2>
               <h2 class="card-title">Level : <%= meditate.level %></h2>
               <h2 class="card-title">
                 Duration : <%= meditate.minutes %>:<%= meditate.seconds %>
@@ -74,26 +76,52 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-              <% if (meditate.steps.length > 0) { %>
-              <ul class="list bg-base-100 rounded-box shadow-md">
-                <li class="p-4 pb-2 text-lg opacity-90 tracking-wide">
-                  Meditate's steps
-                </li>
-                <% for(var i = 0; i < meditate.steps.length;i++){%>
-                <li class="list-row">
-                  <div class="text-4xl font-thin opacity-30 tabular-nums">
-                    <%= i+1 < 10 ? '0'+(i+1) : i+1 %>
-                  </div>
-                  <div class="list-col-grow">
-                    <div>Step <%= meditate.steps[i].number %></div>
-                    <div class="text-sm font-semibold opacity-60">
-                      <%= meditate.steps[i].description %>
+              <div>
+                <% if (meditate.steps.length > 0) { %>
+                <ul class="list bg-base-100 rounded-box shadow-md">
+                  <li class="p-4 pb-2 text-lg opacity-90 tracking-wide">
+                    Meditate's steps
+                  </li>
+                  <% for(var i = 0; i < meditate.steps.length;i++){%>
+                  <li class="list-row">
+                    <div class="text-4xl font-thin opacity-30 tabular-nums">
+                      <%= i+1 < 10 ? '0'+(i+1) : i+1 %>
+                    </div>
+                    <div class="list-col-grow">
+                      <div>Step <%= meditate.steps[i].number %></div>
+                      <div class="text-sm font-semibold opacity-60">
+                        <%= meditate.steps[i].description %>
+                      </div>
+                    </div>
+                  </li>
+                  <%}%>
+                </ul>
+                <%}else{%>
+                <div class="text-center text-xl">No steps available</div>
+                <%}%>
+              </div>
+              <div>
+                <% if (meditate.helps.length > 0) { %>
+                <div class="join join-vertical bg-base-100 w-full">
+                  <div class="text-xl mb-2">Helps</div>
+                  <% for(var i = 0; i < meditate.helps?.length;i++){%>
+                  <div
+                    class="collapse collapse-arrow join-item border-base-300 border"
+                  >
+                    <input type="radio" name="my-accordion-4" />
+                    <div class="collapse-title font-semibold">
+                      <%= meditate.helps[i].question %>
+                    </div>
+                    <div class="collapse-content text-sm">
+                      <%= meditate.helps[i].answer %>
                     </div>
                   </div>
-                </li>
+                  <%}%>
+                </div>
+                <%}else{%>
+                <div class="text-center text-xl">No help available</div>
                 <%}%>
-              </ul>
-              <%}%>
+              </div>
             </div>
           </div>
         </div>

@@ -190,7 +190,7 @@
                     </div>
                   </div>
                   <div class="divider"></div>
-                  <div class="grid grid-cols-1">
+                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
                     <div class="w-full undefined">
                       <label class="label">
                         <span class="label-text text-base-content undefined">
@@ -199,7 +199,7 @@
                       </label>
                       <div
                         id="steps-container"
-                        class="space-y-4 grid grid-cols-1 md:grid-cols-2"
+                        class="space-y-4 grid grid-cols-1"
                       ></div>
 
                       <button
@@ -210,10 +210,29 @@
                         Add Step
                       </button>
                     </div>
+                    <div class="w-full undefined">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Helps
+                        </span>
+                      </label>
+                      <div
+                        id="helps-container"
+                        class="space-y-4 grid grid-cols-1"
+                      ></div>
+
+                      <button
+                        type="button"
+                        class="btn btn-accent mt-2"
+                        onclick="addHelp()"
+                      >
+                        Add Help
+                      </button>
+                    </div>
                   </div>
                   <div class="mt-16">
                     <button type="submit" class="btn btn-primary float-right">
-                      Add
+                      Update
                     </button>
                   </div>
                 </form>
@@ -229,11 +248,11 @@
   <script src="/javascripts/jquery-3.7.1.min.js"></script>
   <script>
     let stepCount = 0;
-
+    let helpCount = 0;
     $(function () {
       // Initialize steps and habits if they exist
       const steps = <%- JSON.stringify(meditate.steps || []) %>;
-
+      const helps = <%- JSON.stringify(meditate.helps || []) %>;
       steps.forEach((step, index) => {
         addStep();
         const stepDiv = document.querySelector(`[data-step-id="${index}"]`);
@@ -241,7 +260,13 @@
         stepDiv.querySelector('input[name$="[description]"]').value =
           step.description;
       });
-
+      helps.forEach((help, index) => {
+        addHelp();
+        const helpDiv = document.querySelector(`[data-help-id="${index}"]`);
+        helpDiv.querySelector('input[name^="helps"]').value = help.question;
+        helpDiv.querySelector('input[name$="[answer]"]').value =
+          help.answer;
+      });
     });
 
     function addStep() {
@@ -267,6 +292,31 @@
       const stepDiv = document.querySelector(`[data-step-id="${id}"]`);
       if (stepDiv) {
         stepDiv.remove();
+      }
+    }
+    function addHelp() {
+      const container = document.getElementById("helps-container");
+
+      const helpDiv = document.createElement("div");
+      helpDiv.className = "border p-4 rounded bg-base-200 relative";
+      helpDiv.setAttribute("data-help-id", helpCount);
+
+      helpDiv.innerHTML = `
+      <label class="label">Question</label>
+      <input type="text" name="helps[${helpCount}][question]" class="input input-bordered w-full mb-2" placeholder="Question" required />
+
+      <label class="label">Answer</label>
+      <input type="text" name="helps[${helpCount}][answer]" class="input input-bordered w-full" placeholder="Answer" required />
+
+      <button type="button" class="btn btn-error btn-sm mt-3" onclick="removeHelp(${helpCount})">Remove Help</button>
+    `;
+      container.appendChild(helpDiv);
+      helpCount++;
+    }
+    function removeHelp(id) {
+      const helpDiv = document.querySelector(`[data-help-id="${id}"]`);
+      if (helpDiv) {
+        helpDiv.remove();
       }
     }
   </script>

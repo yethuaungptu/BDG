@@ -14,7 +14,24 @@
 
     <div class="aos-all min-h-screen">
       <!-- name of each tab group should be unique -->
-      <div class="tabs tabs-border m-3">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 my-5 mx-1 pt-3">
+        <div class="card border border-base-400 pt-2">
+          <div class="text-xl font-bold text-center"><%= gsp.titleMM %></div>
+          <div class="text-lg font-semibold italic text-center">
+            <%= gsp.category %>
+          </div>
+          <div id="mmContent" class="m-2 px-2 overflow-auto"></div>
+        </div>
+        <div class="card border border-base-400 pt-2">
+          <div class="text-xl font-bold text-center"><%= gsp.titleEN %></div>
+          <div class="text-lg font-semibold italic text-center">
+            <%= gsp.category == "ဓမ္မဂါထာ" ? "Gatha": gsp.category == "သုတ္တန်"
+            ? "Sutta":"Pray" %>
+          </div>
+          <div id="enContent" class="m-2 px-2 overflow-auto"></div>
+        </div>
+      </div>
+      <!-- <div class="tabs tabs-border m-3">
         <input
           type="radio"
           name="my_tabs_6"
@@ -34,7 +51,7 @@
           <div class="text-lg font-semibold italic"><%= gsp.category %></div>
           <div id="enContent" class="m-2 px-2"></div>
         </div>
-      </div>
+      </div> -->
     </div>
     <% include ./partial/footer.ejs %>
   </body>

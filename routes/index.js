@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var GSP = require("../models/GSP");
 var Meditate = require("../models/Meditate");
+var Abhidhamma = require("../models/Abhidhamma");
 
 /* GET home page. */
 
@@ -57,8 +58,16 @@ router.get("/dharma", function (req, res, next) {
   res.render("dharma", { __: res.__ });
 });
 
-router.get("/abhidhamma", function (req, res, next) {
-  res.render("abhidhamma", { __: res.__ });
+router.get("/abhidhamma", async function (req, res, next) {
+  const abhidhammas = await Abhidhamma.find({ isDeleted: false }).sort({
+    created: -1,
+  });
+  res.render("abhidhamma", { __: res.__, abhidhammas: abhidhammas });
+});
+
+router.get("/abhidhamma/:id", async function (req, res, next) {
+  const abhidhamma = await Abhidhamma.findById(req.params.id);
+  res.render("abhidhammaDetail", { __: res.__, abhidhamma: abhidhamma });
 });
 
 router.get("/login", function (req, res, next) {

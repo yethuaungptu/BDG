@@ -34,6 +34,7 @@ router.post("/create", async function (req, res) {
     meditate.seconds = req.body.seconds;
     meditate.description = req.body.description;
     meditate.steps = req.body.steps ? req.body.steps : [];
+    meditate.helps = req.body.helps ? req.body.helps : [];
     await meditate.save();
     res.redirect("/admin/meditate");
   } catch (e) {
@@ -88,6 +89,7 @@ router.post("/update", async function (req, res) {
       seconds: req.body.seconds,
       description: req.body.description,
       steps: req.body.steps ? req.body.steps : [],
+      helps: req.body.helps ? req.body.helps : [],
       updated: moment.utc(Date.now()).tz("Asia/Yangon").format(),
     };
     await Meditate.findByIdAndUpdate(req.body.id, { $set: update });

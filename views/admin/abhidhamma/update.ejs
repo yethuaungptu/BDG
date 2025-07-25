@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide Admin</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="drawer lg:drawer-open">
+        <input id="left-sidebar-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+          <div class="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+            <div class="flex-1">
+              <label
+                for="left-sidebar-drawer"
+                class="btn btn-primary drawer-button lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="h-5 inline-block w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  ></path>
+                </svg>
+              </label>
+              <h1 class="text-2xl font-semibold ml-2"></h1>
+            </div>
+          </div>
+          <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
+            <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+              <div class="text-xl font-semibold">
+                <%= __('nav.abhidhamma') %> <%= __('update') %>
+              </div>
+              <div class="divider mt-2"></div>
+              <div class="h-full w-full bg-base-100">
+                <form
+                  class="p-6 rounded-xl shadow space-y-6"
+                  action="/admin/abhidhamma/update"
+                  method="post"
+                >
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="<%= abhidhamma._id %>"
+                  />
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                      class="form-control w-full undefined -mb-7 lg:col-span-2"
+                    >
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Title
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="title"
+                        placeholder="Meditate Title"
+                        class="input input-bordered w-full validator"
+                        value="<%= abhidhamma.title %>"
+                        required
+                        minlength="3"
+                        title="Only letters, numbers or dash"
+                      />
+                      <p class="validator-hint">
+                        Must be at least 3 characters
+                      </p>
+                    </div>
+                    <div class="form-control w-full undefined -mb-7">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Year
+                        </span>
+                      </label>
+                      <input
+                        type="number"
+                        name="year"
+                        placeholder="Year"
+                        class="input input-bordered w-full validator"
+                        value="<%= abhidhamma.year %>"
+                        required
+                        title="Only numbers"
+                      />
+                      <p class="validator-hint">Must be number</p>
+                    </div>
+                    <div
+                      class="form-control w-full undefined -mb-3 col-span-full"
+                    >
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Description
+                        </span>
+                      </label>
+                      <textarea
+                        name="description"
+                        class="textarea textarea-bordered w-full validator"
+                        required
+                        minlength="15"
+                      >
+<%= abhidhamma.description %></textarea
+                      >
+                      <p class="validator-hint">
+                        Must be at least 15 characters
+                      </p>
+                    </div>
+                  </div>
+                  <div class="divider"></div>
+                  <div class="grid grid-cols-1">
+                    <div class="w-full undefined">
+                      <label class="label">
+                        <span
+                          class="label-text text-base-content undefined text-xl"
+                        >
+                          Question
+                        </span>
+                      </label>
+                      <div
+                        id="question-container"
+                        class="space-y-4 grid grid-cols-1"
+                      ></div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary mt-2"
+                        onclick="addQuestion()"
+                      >
+                        Add Question
+                      </button>
+                    </div>
+                  </div>
+                  <div class="mt-16">
+                    <button type="submit" class="btn btn-primary float-right">
+                      Update
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="h-16"></div>
+          </main>
+        </div>
+        <% include ../../partial/adminDrawer %>
+      </div>
+    </div>
+  </body>
+  <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    let questionCount = 0;
+    $(function () {
+      // Initialize steps and habits if they exist
+      const questions = <%- JSON.stringify(abhidhamma.questions || []) %>;
+      questions.forEach((question, index) => {
+        addQuestion();
+        const questionDiv = document.querySelector(`[data-question-id="${index}"]`);
+        questionDiv.querySelector('input[name^="question"]').value = question.question;
+        questionDiv.querySelector('input[name$="[answer]"]').value =
+          question.answer;
+      });
+    });
+    function addQuestion() {
+      const container = document.getElementById("question-container");
+
+      const questionDiv = document.createElement("div");
+      questionDiv.className = "border p-4 rounded bg-base-200 relative";
+      questionDiv.setAttribute("data-question-id", questionCount);
+
+      questionDiv.innerHTML = `
+      <label class="label">Question</label>
+      <input type="text" name="questions[${questionCount}][question]" class="input input-bordered w-full mb-2" placeholder="Question" required />
+
+      <label class="label">Answer</label>
+      <input type="text" name="questions[${questionCount}][answer]" class="input input-bordered w-full" placeholder="Answer" required />
+
+      <button type="button" class="btn btn-error btn-sm mt-3" onclick="removeQuestion(${questionCount})">Remove Question</button>
+    `;
+      container.appendChild(questionDiv);
+      questionCount++;
+    }
+    function removeQuestion(id) {
+      const questionDiv = document.querySelector(`[data-question-id="${id}"]`);
+      if (questionDiv) {
+        questionDiv.remove();
+      }
+    }
+  </script>
+</html>

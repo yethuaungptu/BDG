@@ -2,40 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 var moment = require("moment-timezone");
 
-const MeditateSchema = new Schema({
+const AbhidhammaSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
-  guider: {
-    type: String,
-    required: true,
-  },
-  level: {
-    type: String,
-    required: true,
-  },
-  minutes: {
+  year: {
     type: Number,
     required: true,
   },
-  seconds: {
-    type: Number,
-    required: true,
-  },
-  steps: [
-    {
-      number: {
-        type: Number,
-        required: true,
-      },
-      description: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-  helps: [
+  questions: [
     {
       question: {
         type: String,
@@ -47,23 +23,11 @@ const MeditateSchema = new Schema({
       },
     },
   ],
-  mediaUrl: {
-    type: String,
-    required: true,
-  },
-  mediaType: {
-    type: String,
-    required: true,
-  },
   description: {
     type: String,
     required: true,
   },
   isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-  isFeatured: {
     type: Boolean,
     default: false,
   },
@@ -77,4 +41,4 @@ const MeditateSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Meditate", MeditateSchema);
+module.exports = mongoose.model("Abhidhamma", AbhidhammaSchema);

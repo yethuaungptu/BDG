@@ -42,7 +42,7 @@
                 <%= __('nav.meditate') %> <%= __('create') %>
               </div>
               <div class="divider mt-2"></div>
-              <div class="h-full w-full pb-6 bg-base-100">
+              <div class="h-full w-full bg-base-100">
                 <form
                   class="p-6 rounded-xl shadow space-y-6"
                   action="/admin/meditate/create"
@@ -184,7 +184,7 @@
                     </div>
                   </div>
                   <div class="divider"></div>
-                  <div class="grid grid-cols-1">
+                  <div class="grid grid-cols-1 lg:grid-cols-2 mb-2 gap-2">
                     <div class="w-full undefined">
                       <label class="label">
                         <span class="label-text text-base-content undefined">
@@ -193,7 +193,7 @@
                       </label>
                       <div
                         id="steps-container"
-                        class="space-y-4 grid grid-cols-1 md:grid-cols-2"
+                        class="space-y-4 grid grid-cols-1"
                       ></div>
 
                       <button
@@ -202,6 +202,25 @@
                         onclick="addStep()"
                       >
                         Add Step
+                      </button>
+                    </div>
+                    <div class="w-full undefined">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Helps
+                        </span>
+                      </label>
+                      <div
+                        id="helps-container"
+                        class="space-y-4 grid grid-cols-1"
+                      ></div>
+
+                      <button
+                        type="button"
+                        class="btn btn-accent mt-2"
+                        onclick="addHelp()"
+                      >
+                        Add Help
                       </button>
                     </div>
                   </div>
@@ -222,7 +241,7 @@
   </body>
   <script>
     let stepCount = 0;
-
+    let helpCount = 0;
     function addStep() {
       const container = document.getElementById("steps-container");
 
@@ -246,6 +265,32 @@
       const stepDiv = document.querySelector(`[data-step-id="${id}"]`);
       if (stepDiv) {
         stepDiv.remove();
+      }
+    }
+
+    function addHelp() {
+      const container = document.getElementById("helps-container");
+
+      const helpDiv = document.createElement("div");
+      helpDiv.className = "border p-4 rounded bg-base-200 relative";
+      helpDiv.setAttribute("data-help-id", helpCount);
+
+      helpDiv.innerHTML = `
+      <label class="label">Question</label>
+      <input type="text" name="helps[${helpCount}][question]" class="input input-bordered w-full mb-2" placeholder="Question" required />
+
+      <label class="label">Answer</label>
+      <input type="text" name="helps[${helpCount}][answer]" class="input input-bordered w-full" placeholder="Answer" required />
+
+      <button type="button" class="btn btn-error btn-sm mt-3" onclick="removeHelp(${helpCount})">Remove Help</button>
+    `;
+      container.appendChild(helpDiv);
+      helpCount++;
+    }
+    function removeHelp(id) {
+      const helpDiv = document.querySelector(`[data-help-id="${id}"]`);
+      if (helpDiv) {
+        helpDiv.remove();
       }
     }
   </script>

@@ -93,6 +93,24 @@
                 </div>
                 <%}%>
               </div>
+              <div class="mt-2 w-full">
+                <div class="text-lg my-3">Helps</div>
+                <div class="join join-vertical bg-base-100">
+                  <% for(var i = 0; i < meditate.helps?.length;i++){%>
+                  <div
+                    class="collapse collapse-arrow join-item border-base-300 border"
+                  >
+                    <input type="radio" name="my-accordion-4" />
+                    <div class="collapse-title font-semibold">
+                      <%= meditate.helps[i].question %>
+                    </div>
+                    <div class="collapse-content text-sm">
+                      <%= meditate.helps[i].answer %>
+                    </div>
+                  </div>
+                  <%}%>
+                </div>
+              </div>
               <div class="divider"></div>
               <div class="card-actions justify-end">
                 <% if(meditate.isFeatured){%>
