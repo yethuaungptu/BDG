@@ -55,13 +55,55 @@
     </ul>
   </div>
   <div class="navbar-end">
+    <% if(locals.isAuthenticated){%>
     <a
-      href="/login"
+      href="/auth/logout"
+      class="btn btn-outline text-secondary btn-ghost btn-primary"
+      ><%= __('nav.logout') %></a
+    >
+    <%}else{%>
+    <a
+      href="/auth/login"
       class="btn btn-outline text-secondary btn-ghost btn-primary"
       ><%= __('nav.account') %></a
     >
+    <%}%>
   </div>
 </div>
-<script>
-  console.log("<%= locals.lang %>");
-</script>
+<% if (success && success.length > 0) { %> <% success.forEach(function(message)
+{ %>
+<div
+  class="alert alert-success flex justify-between items-center gap-4 alert-vertical sm:alert-horizontal"
+  role="alert"
+>
+  <div class="flex justify-between items-center w-full">
+    <span><%= message %></span>
+    <button
+      onclick="this.parentElement.parentElement.remove()"
+      class="btn btn-sm btn-primary"
+    >
+      Close
+    </button>
+  </div>
+</div>
+<% }); %> <% } %> <% if (error && error.length > 0) { %> <%
+error.forEach(function(message) { %>
+<div
+  class="alert alert-error flex justify-between items-center gap-4 alert-vertical sm:alert-horizontal"
+  role="alert"
+>
+  <div class="flex justify-between items-center w-full">
+    <span><%= message %></span>
+    <button
+      onclick="this.parentElement.parentElement.remove()"
+      class="btn btn-sm btn-primary"
+    >
+      Close
+    </button>
+  </div>
+</div>
+  <% }); %> <% } %>
+  <script>
+    console.log("<%= locals.isAuthenticated %>");
+  </script>
+</div>

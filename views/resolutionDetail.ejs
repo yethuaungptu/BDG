@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ./partial/navbar.ejs %>
+
+    <div class="max-w-3xl mx-auto px-4 py-6 space-y-6">
+      <!-- Header Section -->
+      <div class="text-center space-y-1">
+        <h1 class="text-2xl font-bold text-primary">
+          <%= resolution.titleMM %>
+        </h1>
+        <p class="text-gray-600 text-sm"><%= resolution.titleEN %></p>
+        <% if(resolution.isFeatured){%>
+        <div class="badge badge-success text-white text-sm">Featured</div>
+        <%}%>
+      </div>
+
+      <!-- Image -->
+      <div class="rounded-xl overflow-hidden shadow">
+        <img
+          src="<%= resolution.image %>"
+          alt="Resolution Banner"
+          class="w-full object-cover h-64"
+        />
+      </div>
+
+      <!-- Metadata -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+        <div class="bg-base-100 p-4 rounded-lg shadow">
+          <div class="text-sm text-gray-500">Start Day</div>
+          <div class="font-semibold text-lg">
+            <%= resolution.startDay == "any"? '-': resolution.startDay%>
+          </div>
+        </div>
+        <div class="bg-base-100 p-4 rounded-lg shadow">
+          <div class="text-sm text-gray-500">Duration</div>
+          <div class="font-semibold text-lg">
+            <%= resolution.durationDays %> Days
+          </div>
+        </div>
+        <div class="bg-base-100 p-4 rounded-lg shadow">
+          <div class="text-sm text-gray-500">Remark</div>
+          <div class="text-sm text-gray-700"><%= resolution.remark %></div>
+        </div>
+      </div>
+
+      <!-- Resolution Description -->
+      <div class="prose max-w-none text-gray-800">
+        <p id="contentMM"></p>
+        <br />
+        <p id="contentEN"></p>
+      </div>
+
+      <!-- Step List -->
+      <div>
+        <h2 class="text-xl font-semibold mb-2">🪜 Resolution Steps</h2>
+        <div class="space-y-3">
+          <% for(var i = 0; i < resolution.steps.length;i++){%>
+          <div class="card bg-base-100 shadow p-4">
+            <h4 class="font-bold">Step <%= resolution.steps[i].number %></h4>
+            <p class="text-sm text-gray-600">
+              <%= resolution.steps[i].descriptionMM %>
+            </p>
+            <p class="text-sm text-gray-600">
+              <%= resolution.steps[i].descriptionEN %>
+            </p>
+          </div>
+          <%}%>
+        </div>
+      </div>
+
+      <!-- Daily Task List -->
+      <div>
+        <h2 class="text-xl font-semibold mt-6 mb-2">📅 Daily Tasks</h2>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-1"
+        >
+          <% for(var i = 0; i < resolution.dailyTasks.length;i++){%>
+          <div class="card bg-base-100 shadow p-4">
+            <div class="font-semibold text-lg">
+              Day <%= resolution.dailyTasks[i].day %> - <%=
+              resolution.dailyTasks[i].titleEN %>
+            </div>
+            <div class="text-lg font-semibold text-gray-500 mb-2">
+              နေ့ <%= resolution.dailyTasks[i].day %> - <%=
+              resolution.dailyTasks[i].titleMM %>
+            </div>
+            <p class="text-sm"><%= resolution.dailyTasks[i].descriptionEN %></p>
+            <p class="text-sm text-gray-700 mt-1">
+              <%= resolution.dailyTasks[i].descriptionMM %>
+            </p>
+          </div>
+          <%}%>
+        </div>
+      </div>
+    </div>
+
+    <% include ./partial/footer.ejs %>
+  </body>
+  <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function () {
+      $("#contentMM").html("<%- resolution.contentMM %>");
+      $("#contentEN").html("<%- resolution.contentEN %>");
+    });
+  </script>
+</html>

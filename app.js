@@ -1,3 +1,5 @@
+require("dotenv").config();
+const flash = require("connect-flash");
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -10,6 +12,9 @@ const i18n = require("i18n");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var adminRouter = require("./routes/admin");
+
+const passport = require("./config/passport");
+const { router: authRoutes, isAuthenticated } = require("./routes/auth");
 
 var app = express();
 
@@ -45,6 +50,11 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(flash());
+
 app.use(i18n.init);
 
 app.use((req, res, next) => {
@@ -56,11 +66,17 @@ app.use((req, res, next) => {
     req.setLocale(req.session.locale);
   }
   res.locals.lang = req.getLocale();
+  res.locals.isAuthenticated = req.isAuthenticated
+    ? req.isAuthenticated()
+    : false;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   next();
 });
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/auth", authRoutes);
+app.use("/users", isAuthenticated, usersRouter);
 app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler

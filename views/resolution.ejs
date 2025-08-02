@@ -3,19 +3,39 @@
   <head>
     <title>Buddhism Dhamma Guide</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/aos.css" />
-    <link rel="stylesheet" href="/stylesheets/swiper-bundle.min.css" />
-    <script src="/javascripts/swiper-bundle.min.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
     <% include ./partial/navbar.ejs %>
 
-    <div class="aos-all h-screen">
-      <div class="text-lg text-center"><%= __('nav.resolution') %></div>
+    <div class="h-screen">
+      <div class="text-2xl my-3 text-center"><%= __('nav.resolution') %></div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 m-1 lg:m-3"
+      >
+        <% for(var i = 0; i < resolutions.length;i++){%>
+        <div class="card bg-base-100 w-full shadow-sm">
+          <figure>
+            <img src="<%= resolutions[i].image %>" alt="Shoes" />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">
+              <%= resolutions[i].titleMM %>(<%= resolutions[i].titleEN %>)
+            </h2>
+            <p><%= resolutions[i].descriptionMM %></p>
+            <div class="card-actions justify-end">
+              <a
+                href="/resolution/<%= resolutions[i]._id %>"
+                class="btn btn-primary"
+                >See More</a
+              >
+            </div>
+          </div>
+        </div>
+        <%}%>
+      </div>
     </div>
     <% include ./partial/footer.ejs %>
   </body>
-  <script src="/javascripts/aos.js"></script>
 </html>

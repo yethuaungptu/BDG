@@ -3,6 +3,7 @@ var router = express.Router();
 var GSP = require("../models/GSP");
 var Meditate = require("../models/Meditate");
 var Abhidhamma = require("../models/Abhidhamma");
+var Resolution = require("../models/Resolution");
 
 /* GET home page. */
 
@@ -12,11 +13,16 @@ router.get("/", async function (req, res, next) {
     isDeleted: false,
     isFeatured: true,
   });
+  const featuredResolution = await Resolution.find({
+    isDeleted: false,
+    isFeatured: true,
+  });
   res.render("index", {
     title: "Express",
     __: res.__,
     featuredGsp: featuredGsp,
     featuredMeditate: featuredMeditate,
+    featuredResolution: featuredResolution,
   });
 });
 
@@ -50,8 +56,14 @@ router.get("/meditate/detail/:id", async function (req, res, next) {
   }
 });
 
-router.get("/resolution", function (req, res, next) {
-  res.render("resolution", { __: res.__ });
+router.get("/resolution", async function (req, res, next) {
+  const resolutions = await Resolution.find({ isDeleted: false });
+  res.render("resolution", { __: res.__, resolutions: resolutions });
+});
+
+router.get("/resolution/:id", async function (req, res, next) {
+  const resolution = await Resolution.findById(req.params.id);
+  res.render("resolutionDetail", { __: res.__, resolution: resolution });
 });
 
 router.get("/dharma", function (req, res, next) {

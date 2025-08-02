@@ -3,6 +3,7 @@ var router = express.Router();
 var gspController = require("../controllers/gspController");
 var meditateController = require("../controllers/meditateController");
 var abhidhammaController = require("../controllers/abhidhammaController");
+var resolutionController = require("../controllers/resolutionController");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -12,4 +13,5 @@ router.get("/", function (req, res, next) {
 router.use("/gsp", gspController);
 router.use("/meditate", meditateController);
 router.use("/abhidhamma", abhidhammaController);
+router.use("/resolution", resolutionController);
 module.exports = router;
