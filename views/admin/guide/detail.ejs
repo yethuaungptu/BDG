@@ -42,78 +42,27 @@
             >
               <!-- Blog Title -->
               <h1 class="text-2xl font-bold text-primary">
-                <%= meditate.title %>
+                <%= guide.title %>
               </h1>
               <div class="divider"></div>
-              <div class="text-xl text-center font-bold">
-                <%= meditate.guider %>
+              <div class="text-lg text-center font-semibold">
+                <%= guide.summary %>
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="text-lg text-center">
-                  Method : <%= meditate.level %>
-                </div>
-                <div class="text-lg text-center">
-                  Duration : <%= meditate.minutes %>:<%= meditate.seconds %>
-                </div>
-              </div>
-              <div class="divider"></div>
-              <div class="text-lg"><%= meditate.description %></div>
-              <% if(meditate.mediaType == "MP4"){%>
+
               <iframe
                 width="560"
                 height="315"
-                src="<%= meditate.mediaUrl %>"
+                src="<%= guide.mediaUrl %>"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
-              <%}else{%>
-              <audio controls autoplay>
-                <source
-                  src="http://dhammadownload.com/MP3Library/Dr-Nandamalabhivamsa/2013-MahaThaTiPaHtan/Dr-Nandamalabhivasa-2013-09-21-Am-Opening-%E1%80%99%E1%80%87%E1%80%B9%E1%80%85%E1%80%BB%E1%80%AD%E1%80%99%E1%80%94%E1%80%AD%E1%80%80%E1%80%AC%E1%80%9A%E1%80%B1-%E1%80%99%E1%80%9F%E1%80%AC%E1%80%9E%E1%80%90%E1%80%AD%E1%80%95%E1%80%8B%E1%80%B9%E1%80%8C%E1%80%AC%E1%80%94%E1%80%9E%E1%80%AF%E1%80%90%E1%80%B9%E1%80%90%E1%80%B6-%E1%81%81.mp3"
-                  type="audio/mp3"
-                />
-                Your browser does not support the audio element.
-              </audio>
-              <%}%>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                <% for(var i = 0; i < meditate.steps.length; i++){%>
-                <div class="card w-full bg-base-100 card-sm shadow-sm">
-                  <div class="card-body">
-                    <h2 class="card-title">
-                      Step - <%= meditate.steps[i].number %>
-                    </h2>
-                    <p class="text-lg font-thin">
-                      <%= meditate.steps[i].description %>
-                    </p>
-                  </div>
-                </div>
-                <%}%>
-              </div>
-              <div class="mt-2 w-full">
-                <div class="text-lg my-3">Helps</div>
-                <div class="join join-vertical bg-base-100">
-                  <% for(var i = 0; i < meditate.helps?.length;i++){%>
-                  <div
-                    class="collapse collapse-arrow join-item border-base-300 border"
-                  >
-                    <input type="radio" name="my-accordion-4" />
-                    <div class="collapse-title font-semibold">
-                      <%= meditate.helps[i].question %>
-                    </div>
-                    <div class="collapse-content text-sm">
-                      <%= meditate.helps[i].answer %>
-                    </div>
-                  </div>
-                  <%}%>
-                </div>
-              </div>
               <div class="divider"></div>
               <div class="card-actions justify-end">
-                <% if(meditate.isFeatured){%>
+                <% if(guide.isFeatured){%>
                 <button class="btn btn-warning" onclick="changeFeature(false);">
                   Remove featured
                 </button>
@@ -127,7 +76,7 @@
                 </button>
                 <a
                   class="btn btn-info"
-                  href="/admin/meditate/update/<%= meditate._id %>"
+                  href="/admin/guide/update/<%= guide._id %>"
                   >Update</a
                 >
               </div>
@@ -143,10 +92,10 @@
   <script>
     function changeFeature(isFeatured) {
       $.ajax({
-        url: "/admin/meditate/feature",
+        url: "/admin/guide/feature",
         type: "POST",
         data: {
-          meditateId: "<%= meditate._id %>",
+          guideId: "<%= guide._id %>",
           isFeatured: isFeatured,
         },
         success: function (response) {
@@ -166,14 +115,14 @@
         return;
       }
       $.ajax({
-        url: "/admin/meditate/delete",
+        url: "/admin/guide/delete",
         type: "POST",
         data: {
-          meditateId: "<%= meditate._id %>",
+          guideId: "<%= guide._id %>",
         },
         success: function (response) {
           if (response.status === "success") {
-            location.href = "/admin/meditate";
+            location.href = "/admin/guide";
           } else {
             alert("Error deleting tip");
           }
@@ -184,10 +133,8 @@
       });
     }
     $(function () {
-      //   const data = "<div><%- meditate.mediaUrl %></div>";
-      //   $("#mediaUrl").html(<%- meditate.mediaUrl %>);
       document.getElementById("mediaUrl").innerHTML =
-        "<div><%- meditate.mediaUrl %></div>";
+        "<div><%- guide.mediaUrl %></div>";
     });
   </script>
 </html>

@@ -71,12 +71,14 @@ app.use((req, res, next) => {
     : false;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.user = req.user;
+  res.locals.admin = req.session.admin;
   next();
 });
 
 app.use("/", indexRouter);
 app.use("/auth", authRoutes);
-app.use("/users", isAuthenticated, usersRouter);
+app.use("/user", isAuthenticated, usersRouter);
 app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler

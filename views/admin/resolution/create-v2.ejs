@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide Admin</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/stylesheets/quill.snow.css" rel="stylesheet" />
+    <script src="/javascripts/quill.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div class="drawer lg:drawer-open">
+        <input id="left-sidebar-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+          <div class="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+            <div class="flex-1">
+              <label
+                for="left-sidebar-drawer"
+                class="btn btn-primary drawer-button lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-5 inline-block w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  ></path>
+                </svg>
+              </label>
+            </div>
+          </div>
+
+          <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
+            <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+              <div class="text-xl font-semibold">
+                <%= __('nav.resolution') %> <%= __('create') %>
+              </div>
+              <div class="divider mt-2"></div>
+              <form
+                class="p-6 rounded-xl shadow space-y-6"
+                action="/admin/resolution/create"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <!-- Basic Fields -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div class="form-control">
+                    <label class="label"
+                      ><span class="label-text">Title MM</span></label
+                    >
+                    <input
+                      type="text"
+                      name="titleMM"
+                      placeholder="Resolution Title MM"
+                      class="input input-bordered"
+                      required
+                      minlength="3"
+                    />
+                  </div>
+
+                  <div class="form-control">
+                    <label class="label"
+                      ><span class="label-text">Title EN</span></label
+                    >
+                    <input
+                      type="text"
+                      name="titleEN"
+                      placeholder="Resolution Title EN"
+                      class="input input-bordered"
+                      required
+                      minlength="3"
+                    />
+                  </div>
+
+                  <div class="form-control">
+                    <label class="label"
+                      ><span class="label-text">Image</span></label
+                    >
+                    <input
+                      type="file"
+                      name="image"
+                      class="file-input"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-control mb-24 lg:mb-12 col-span-full">
+                    <label class="label"
+                      ><span class="label-text">MM Content</span></label
+                    >
+                    <div id="contentEditorMM"></div>
+                    <input type="hidden" name="contentMM" id="mmContent" />
+                  </div>
+
+                  <div class="form-controlmb-24 lg:mb-12 col-span-full">
+                    <label class="label"
+                      ><span class="label-text">EN Content</span></label
+                    >
+                    <div id="contentEditorEN"></div>
+                    <input type="hidden" name="contentEN" id="enContent" />
+                  </div>
+
+                  <div class="form-control">
+                    <label class="label"
+                      ><span class="label-text">Start Day</span></label
+                    >
+                    <select class="select w-full" name="startDay" required>
+                      <option value="any">Any Day</option>
+                      <option value="Sunday">Sunday</option>
+                      <option value="Monday">MonDay</option>
+                      <option value="Tuesday">Tuesday</option>
+                      <option value="Wednesday">Wednesday</option>
+                      <option value="Thursday">Thursday</option>
+                      <option value="Friday">Friday</option>
+                      <option value="Saturday">Saturday</option>
+                    </select>
+                  </div>
+
+                  <div class="form-control">
+                    <label class="label"
+                      ><span class="label-text">Duration Days</span></label
+                    >
+                    <input
+                      type="number"
+                      name="durationDays"
+                      placeholder="Duration Days"
+                      class="input input-bordered"
+                      min="1"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-control">
+                    <label class="label"
+                      ><span class="label-text">Remark</span></label
+                    >
+                    <input
+                      type="text"
+                      name="remark"
+                      placeholder="Remark"
+                      class="input input-bordered"
+                      minlength="3"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Steps Section -->
+                <div>
+                  <label class="label"
+                    ><span class="label-text">Steps</span></label
+                  >
+                  <div id="steps-container" class="space-y-4"></div>
+                  <button
+                    type="button"
+                    class="btn btn-secondary mt-2"
+                    onclick="addStep()"
+                  >
+                    Add Step
+                  </button>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Table Section -->
+                <div>
+                  <label class="label"
+                    ><span class="label-text">Resolution Table</span></label
+                  >
+                  <div id="table-container" class="space-y-6"></div>
+                  <button
+                    type="button"
+                    class="btn btn-accent mt-2"
+                    onclick="addRow()"
+                  >
+                    Add Row
+                  </button>
+                </div>
+
+                <div class="mt-16">
+                  <button type="submit" class="btn btn-primary float-right">
+                    Add
+                  </button>
+                </div>
+              </form>
+            </div>
+          </main>
+        </div>
+        <% include ../../partial/adminDrawer %>
+      </div>
+    </div>
+
+    <script>
+      // Quill Editors
+      const quill1 = new Quill("#contentEditorMM", { theme: "snow" });
+      const quill2 = new Quill("#contentEditorEN", { theme: "snow" });
+      const form = document.querySelector("form");
+      form.addEventListener("submit", () => {
+        document.getElementById("mmContent").value = quill1.root.innerHTML;
+        document.getElementById("enContent").value = quill2.root.innerHTML;
+      });
+
+      // Steps
+      let stepCount = 0;
+      function addStep() {
+        const container = document.getElementById("steps-container");
+        const stepDiv = document.createElement("div");
+        stepDiv.className = "border p-4 rounded bg-base-200";
+        stepDiv.innerHTML = `
+          <label>Step Number</label>
+          <input type="number" name="steps[${stepCount}][number]" class="input input-bordered w-full mb-2" required />
+          <label>Description MM</label>
+          <input type="text" name="steps[${stepCount}][descriptionMM]" class="input input-bordered w-full mb-2" required />
+          <label>Description EN</label>
+          <input type="text" name="steps[${stepCount}][descriptionEN]" class="input input-bordered w-full" required />
+          <button type="button" class="btn btn-error btn-sm mt-3" onclick="this.parentElement.remove()">Remove Step</button>
+        `;
+        container.appendChild(stepDiv);
+        stepCount++;
+      }
+
+      // Table Rows & Columns
+      let rowCount = 0;
+      function addRow() {
+        const container = document.getElementById("table-container");
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "border p-4 rounded bg-base-200";
+        rowDiv.setAttribute("data-row-id", rowCount);
+
+        rowDiv.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
+          <div>
+            <label>Row Index</label>
+            <input type="text" name="table[${rowCount}][rowIdx]" class="input input-bordered w-full mb-2" required />
+          </div>
+          <div>
+            <label>Row Title MM</label>
+            <input type="text" name="table[${rowCount}][rowTitleMM]" class="input input-bordered w-full mb-2" required />
+          </div>
+          <div>
+            <label>Row Title EN</label>
+            <input type="text" name="table[${rowCount}][rowTitleEN]" class="input input-bordered w-full mb-2" required />
+          </div>
+          </div>
+          <div class="mt-4">
+            <label class="font-bold">Columns</label>
+            <div id="col-container-${rowCount}" class="space-y-4"></div>
+            <button type="button" class="btn btn-info mt-2" onclick="addColumn(${rowCount})">Add Column</button>
+          </div>
+
+          <button type="button" class="btn btn-error btn-sm mt-3" onclick="this.parentElement.remove()">Remove Row</button>
+        `;
+        container.appendChild(rowDiv);
+        rowCount++;
+      }
+
+      function addColumn(rowId) {
+        const container = document.getElementById(`col-container-${rowId}`);
+        const colCount = container.children.length;
+        const colDiv = document.createElement("div");
+        colDiv.className = "border p-4 rounded bg-base-100";
+        colDiv.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
+          <div>
+            <label>Title MM</label>
+            <input type="text" name="table[${rowId}][colData][${colCount}][titleMM]" class="input input-bordered w-full mb-2" required />
+          </div>
+          <div>
+            <label>Title EN</label>
+            <input type="text" name="table[${rowId}][colData][${colCount}][titleEN]" class="input input-bordered w-full mb-2" required />
+          </div>
+          <div>
+            <label>Sub Title MM</label>
+            <input type="text" name="table[${rowId}][colData][${colCount}][subTitleMM]" class="input input-bordered w-full mb-2" placeholder="Optional" />
+          </div>
+          <div>
+            <label>Sub Title EN</label>
+            <input type="text" name="table[${rowId}][colData][${colCount}][subTitleEN]" class="input input-bordered w-full mb-2" placeholder="Optional"/>
+          </div>
+          <div>
+            <label>Round MM</label>
+            <input type="text" name="table[${rowId}][colData][${colCount}][roundMM]" class="input input-bordered w-full mb-2" required />
+          </div>
+          <div>
+            <label>Round EN</label>
+            <input type="text" name="table[${rowId}][colData][${colCount}][roundEN]" class="input input-bordered w-full mb-2" required />
+          </div>
+          <div>
+            <label class="inline-flex items-center mt-2">
+            <input type="checkbox" name="table[${rowId}][colData][${colCount}][isSpecial]" class="checkbox" /> &nbsp;Is Special?
+            </label>
+          </div>
+          <button type="button" class="btn btn-error btn-sm my-auto" onclick="this.parentElement.parentElement.remove()">Remove Column</button>
+        </div>
+        `;
+        container.appendChild(colDiv);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/aos.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ../partial/navbar.ejs %>
+
+    <div class="aos-all py-auto min-h-screen">
+      <div class="max-w-4xl mx-auto p-6 card bg-base-100 shadow-sm my-5">
+        <div class="flex items-center space-x-6">
+          <img
+            src="<%= user.avatar %>"
+            alt="User Profile"
+            class="w-24 h-24 rounded-full border"
+          />
+          <div>
+            <h2 class="text-2xl font-bold"><%= user.name %></h2>
+            <p class="text-gray-600"><%= user.email %></p>
+          </div>
+        </div>
+        <div class="card bg-base-100 shadow-sm my-2">
+          <div class="stats stats-vertical lg:stats-horizontal shadow">
+            <div class="stat place-items-center">
+              <div class="stat-title">Likes</div>
+              <div class="stat-value">
+                <%= guide[0].currentUserTotalLikeCount %>
+              </div>
+            </div>
+
+            <div class="stat place-items-center">
+              <div class="stat-title">Comment</div>
+              <div class="stat-value">
+                <%= guide[0].currentUserTotalCommentCount %>
+              </div>
+            </div>
+            <div class="stat place-items-center">
+              <div class="stat-title">Joined Resolution</div>
+              <div class="stat-value"><%= user.resolutionList.length %></div>
+            </div>
+          </div>
+        </div>
+        <div class="my-3 flex flex-1 mx-auto">
+          <a href="/user/myResolution" class="btn btn-primary mx-1 lg:mx-3"
+            >Go To My Joined Resolution</a
+          >
+          <a href="/user/quiz" class="btn btn-secondary mx-1 lg:mx-3"
+            >Take a Quiz</a
+          >
+        </div>
+      </div>
+      <!-- <div class="max-w-4xl mx-auto p-6 card bg-base-100 shadow-sm my-5">
+        <div class="tabs tabs-lift">
+          <input
+            type="radio"
+            name="my_tabs_3"
+            class="tab"
+            aria-label="Like Activity"
+            checked="checked"
+          />
+          <div
+            class="tab-content bg-base-100 border-base-300 p-6 overflow-y-auto max-h-96"
+          >
+            <ul class="menu bg-base-100 rounded-box shadow-md w-full">
+              <li>
+                <p>8/8/2025 You liked test data</p>
+              </li>
+              <li>
+                <p>9/8/2025 You liked test data</p>
+              </li>
+            </ul>
+          </div>
+
+          <input
+            type="radio"
+            name="my_tabs_3"
+            class="tab"
+            aria-label="Comment Activity"
+          />
+          <div
+            class="tab-content bg-base-100 border-base-300 p-6 overflow-y-auto max-h-96"
+          >
+            <ul class="menu bg-base-100 rounded-box shadow-md w-full">
+              <li>
+                <p>8/8/2025 You commented test data</p>
+              </li>
+              <li>
+                <p>9/8/2025 You commented test data</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <% include ../partial/footer.ejs %>
+  </body>
+</html>

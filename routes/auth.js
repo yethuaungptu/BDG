@@ -14,7 +14,7 @@ const isAuthenticated = (req, res, next) => {
 // Middleware to redirect if already logged in
 const redirectIfAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
-    return res.redirect("/dashboard");
+    return res.redirect("/user");
   }
   next();
 };
@@ -99,9 +99,9 @@ router.post("/login", (req, res, next) => {
         req.flash("error", "Login failed. Please try again.");
         return res.redirect("/auth/login");
       }
-
+      console.log(user);
       req.flash("success", `Welcome back, ${user.name}!`);
-      return res.redirect("/dashboard");
+      return res.redirect("/user");
     });
   })(req, res, next);
 });
@@ -109,7 +109,15 @@ router.post("/login", (req, res, next) => {
 // Google OAuth routes
 router.get(
   "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google", {
+    scope: [
+      "profile",
+      "email",
+      "https://www.googleapis.com/auth/calendar.events",
+    ],
+    accessType: "offline", // ✅ Force refresh token
+    prompt: "consent",
+  })
 );
 
 router.get(
@@ -117,7 +125,7 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/auth/login" }),
   (req, res) => {
     req.flash("success", `Welcome, ${req.user.name}!`);
-    res.redirect("/dashboard");
+    res.redirect("/user");
   }
 );
 

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+var moment = require("moment-timezone");
 
 const userSchema = new mongoose.Schema(
   {
@@ -19,7 +20,27 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    resolutionList: [
+      {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "ResolutionTable",
+        },
+        created: {
+          type: Date,
+          default: moment.utc(Date.now()).tz("Asia/Yangon").format(),
+        },
+      },
+    ],
     googleId: {
+      type: String,
+      sparse: true, // Allows multiple null values
+    },
+    googleAccessToken: {
+      type: String,
+      sparse: true, // Allows multiple null values
+    },
+    googleRefreshToken: {
       type: String,
       sparse: true, // Allows multiple null values
     },

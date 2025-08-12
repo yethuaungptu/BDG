@@ -1,0 +1,464 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f0f0;
+  overflow: hidden;
+} */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Top Toolbar */
+.top-toolbar {
+  background: #2c2c2c;
+  color: white;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #444;
+  overflow-x: auto;
+  min-height: 48px;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar-separator {
+  width: 1px;
+  height: 24px;
+  background: #555;
+  margin: 0 8px;
+}
+
+.btnPdf {
+  background: #404040;
+  border: 1px solid #555;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.btnPdf:hover {
+  background: #505050;
+}
+
+.btnPdf:active {
+  background: #353535;
+}
+
+.btnPdf:disabled {
+  background: #2a2a2a;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  background: #404040;
+  border: 1px solid #555;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background: #505050;
+}
+
+.page-input {
+  width: 50px;
+  padding: 4px 8px;
+  border: 1px solid #555;
+  background: #333;
+  color: white;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.zoom-select {
+  padding: 4px 8px;
+  border: 1px solid #555;
+  background: #333;
+  color: white;
+  border-radius: 3px;
+  min-width: 80px;
+}
+
+.file-input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.file-input {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: #e8e8e8;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s;
+}
+
+.sidebar.collapsed {
+  width: 0;
+  overflow: hidden;
+}
+
+.sidebar-tabs {
+  display: flex;
+  background: #ddd;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar-tab {
+  flex: 1;
+  padding: 8px 12px;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  border-bottom: 2px solid transparent;
+}
+
+.sidebar-tab.active {
+  background: #e8e8e8;
+  border-bottom-color: #0078d4;
+}
+
+.sidebar-content {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.thumbnail {
+  width: 100%;
+  margin-bottom: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.thumbnail.active {
+  border-color: #0078d4;
+}
+
+.thumbnail canvas {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail-label {
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Viewer Area */
+.viewer-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #525659;
+}
+
+.viewer-toolbar {
+  background: #404040;
+  color: white;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #555;
+}
+
+.viewer-content {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pdf-container {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.pdf-page {
+  display: block;
+  margin: 0 auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.pdf-page:last-child {
+  border-bottom: none;
+}
+
+/* Loading and Error States */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #666;
+  font-size: 18px;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #d32f2f;
+  font-size: 16px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
+  font-size: 18px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .top-toolbar {
+    padding: 4px 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .toolbar-group {
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .btnPdf {
+    padding: 6px 8px;
+    font-size: 11px;
+    min-width: auto;
+  }
+
+  .icon-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  #filePathInput {
+    width: 150px !important;
+    font-size: 12px;
+  }
+
+  .page-input {
+    width: 40px;
+    font-size: 12px;
+  }
+
+  .zoom-select {
+    min-width: 70px;
+    font-size: 12px;
+  }
+
+  .sidebar {
+    width: 200px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+
+  .viewer-content {
+    padding: 10px;
+  }
+
+  .welcome {
+    padding: 20px;
+    text-align: center;
+  }
+
+  #welcomePathInput {
+    width: 250px !important;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-toolbar {
+    padding: 4px;
+  }
+
+  .toolbar-group {
+    gap: 2px;
+  }
+
+  .btnPdf {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+
+  .icon-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  #filePathInput {
+    width: 120px !important;
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  .page-input {
+    width: 35px;
+    font-size: 11px;
+    padding: 3px 4px;
+  }
+
+  .zoom-select {
+    min-width: 60px;
+    font-size: 11px;
+    padding: 3px 4px;
+  }
+
+  .sidebar {
+    width: 180px;
+  }
+
+  .sidebar-tab {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .viewer-content {
+    padding: 5px;
+  }
+
+  .pdf-container {
+    max-width: calc(100vw - 20px);
+    overflow-x: auto;
+  }
+
+  .welcome {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  #welcomePathInput {
+    width: 200px !important;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .toolbar-separator {
+    display: none;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (pointer: coarse) {
+  .btnPdf,
+  .icon-btn {
+    min-height: 32px;
+    touch-action: manipulation;
+  }
+
+  .sidebar-tab {
+    min-height: 32px;
+    touch-action: manipulation;
+  }
+
+  .thumbnail {
+    margin-bottom: 12px;
+  }
+}
+
+/* Search functionality */
+.search-container {
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.search-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.search-results {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.search-result {
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  border-radius: 2px;
+}
+
+.search-result:hover {
+  background: #f0f0f0;
+}

@@ -39,7 +39,7 @@
           <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
             <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
               <div class="text-xl font-semibold inline-block">
-                <%= __('nav.meditate') %> <%= __('list') %>
+                <%= __('nav.abhidhamma') %> <%= __('list') %>
                 <div class="inline-block float-right">
                   <div class="inline-block float-right">
                     <div class="inline-block mr-4">
@@ -62,50 +62,25 @@
                             d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
                           ></path>
                         </svg>
-                        Filter by Method
+                        Filter by Level
                       </label>
                       <ul
                         tabindex="0"
                         class="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52"
                       >
                         <li>
-                          <a href="/admin/meditate?search=မိုးကုတ်နည်း"
-                            >မိုးကုတ်နည်း</a
+                          <a href="/admin/abhidhamma?category=level1"
+                            >Level 1</a
                           >
                         </li>
                         <li>
-                          <a href="/admin/meditate?search=ဖားအောက်နည်း"
-                            >ဖားအောက်နည်း</a
+                          <a href="/admin/abhidhamma?category=level2"
+                            >Level 2</a
                           >
                         </li>
                         <li>
-                          <a href="/admin/meditate?search=မဟာစည်နည်း"
-                            >မဟာစည်နည်း</a
-                          >
-                        </li>
-                        <li>
-                          <a href="/admin/meditate?search=လယ်တီနည်း"
-                            >လယ်တီနည်း</a
-                          >
-                        </li>
-                        <li>
-                          <a href="/admin/meditate?search=သဲအင်းနည်း"
-                            >သဲအင်းနည်း</a
-                          >
-                        </li>
-                        <li>
-                          <a href="/admin/meditate?search=စွန်းလွန်းနည်း"
-                            >စွန်းလွန်းနည်း</a
-                          >
-                        </li>
-                        <li>
-                          <a href="/admin/meditate?search=ကသစ်ဝိုင်နည်း"
-                            >ကသစ်ဝိုင်နည်း</a
-                          >
-                        </li>
-                        <li>
-                          <a href="/admin/meditate?search=အခြားအာနာပါနရှုနည်း"
-                            >အခြားအာနာပါနရှုနည်း</a
+                          <a href="/admin/abhidhamma?category=level3"
+                            >Level 3</a
                           >
                         </li>
                       </ul>
@@ -120,26 +95,26 @@
                     <thead>
                       <tr>
                         <th>Title</th>
-                        <th>Guider</th>
-                        <th>Method</th>
+                        <th>Category</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <% for (var i = 0; i < meditates.length; i++) { %>
+                      <% for (var i = 0; i < abhidhammas.length; i++) { %>
                       <tr>
                         <td>
-                          <div class="font-bold"><%= meditates[i].title %></div>
+                          <div class="font-bold">
+                            <%= abhidhammas[i].title %>
+                          </div>
                         </td>
                         <td>
                           <div class="font-bold">
-                            <%= meditates[i].guider %>
+                            <%= abhidhammas[i].category %>
                           </div>
                         </td>
-                        <td><%= meditates[i].level %></td>
                         <td>
                           <a
-                            href="/admin/meditate/detail/<%= meditates[i]._id %>"
+                            href="/admin/abhidhamma/detail/<%= abhidhammas[i]._id %>"
                             class="btn btn-primary"
                             >Detail</a
                           >

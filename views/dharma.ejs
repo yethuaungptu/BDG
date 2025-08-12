@@ -13,7 +13,24 @@
     <% include ./partial/navbar.ejs %>
 
     <div class="aos-all min-h-screen">
-      <div class="text-lg text-center"><%= __('nav.dharma') %></div>
+      <div class="text-lg text-center"><%= __('nav.dhamma') %></div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+        <% for(var i = 0; i < guides.length; i++){%>
+        <div class="card w-full bg-base-100 card-sm shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title"><%= guides[i].title %></h2>
+            <p><%= guides[i].summary %></p>
+            <div class="justify-end card-actions">
+              <a
+                href="/dhamma/detail/<%= guides[i]._id %>"
+                class="btn btn-primary"
+                >See More</a
+              >
+            </div>
+          </div>
+        </div>
+        <%}%>
+      </div>
     </div>
     <% include ./partial/footer.ejs %>
   </body>

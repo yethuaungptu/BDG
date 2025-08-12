@@ -54,6 +54,11 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/callback",
+      scope: [
+        "profile",
+        "email",
+        "https://www.googleapis.com/auth/calendar.events",
+      ],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -69,9 +74,12 @@ passport.use(
 
         if (user) {
           // Link Google account to existing user
+          console.log("Link user", accessToken, refreshToken);
           user.googleId = profile.id;
           user.avatar = profile.photos[0].value;
           user.isVerified = true;
+          user.accessToken = accessToken;
+          user.refreshToken = refreshToken;
           await user.save();
           return done(null, user);
         }
@@ -82,9 +90,11 @@ passport.use(
           name: profile.displayName,
           email: profile.emails[0].value,
           avatar: profile.photos[0].value,
+          googleAccessToken: accessToken,
+          googleRefreshToken: refreshToken,
           isVerified: true,
         });
-
+        console.log("new user", accessToken, refreshToken);
         await user.save();
         done(null, user);
       } catch (error) {

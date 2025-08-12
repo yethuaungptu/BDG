@@ -65,7 +65,7 @@
               <h2 class="card-title lg:col-span-3">
                 Guider : <%= meditate.guider %>
               </h2>
-              <h2 class="card-title">Level : <%= meditate.level %></h2>
+              <h2 class="card-title">Method : <%= meditate.level %></h2>
               <h2 class="card-title">
                 Duration : <%= meditate.minutes %>:<%= meditate.seconds %>
               </h2>
@@ -80,7 +80,7 @@
                 <% if (meditate.steps.length > 0) { %>
                 <ul class="list bg-base-100 rounded-box shadow-md">
                   <li class="p-4 pb-2 text-lg opacity-90 tracking-wide">
-                    Meditate's steps
+                    Meditation's steps
                   </li>
                   <% for(var i = 0; i < meditate.steps.length;i++){%>
                   <li class="list-row">

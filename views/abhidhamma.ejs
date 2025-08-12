@@ -13,7 +13,11 @@
     <% include ./partial/navbar.ejs %>
 
     <div class="aos-all h-screen">
-      <div class="text-xl text-center my-3"><%= __('nav.abhidhamma') %></div>
+      <div class="text-xl text-center my-3">
+        <%= __('nav.abhidhamma') %>(သုတဓမ္မဒီပလိုမာ Level- <%= filterValue ==
+        "level1"? "1" : filterValue == "level2"? "2" : filterValue == "level3"?
+        "3":"1,2,3" %>)
+      </div>
       <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
         <% for(var i = 0; i < abhidhammas.length; i++){%>
         <div class="card w-full bg-base-100 card-sm shadow-sm">

@@ -3,7 +3,10 @@ var router = express.Router();
 var GSP = require("../models/GSP");
 var Meditate = require("../models/Meditate");
 var Abhidhamma = require("../models/Abhidhamma");
+var AbhidhammaQuestion = require("../models/AbhidhammaQuestion");
 var Resolution = require("../models/Resolution");
+const ResolutionTable = require("../models/ResolutionTable");
+var Guide = require("../models/Guide");
 
 /* GET home page. */
 
@@ -13,7 +16,7 @@ router.get("/", async function (req, res, next) {
     isDeleted: false,
     isFeatured: true,
   });
-  const featuredResolution = await Resolution.find({
+  const featuredResolution = await ResolutionTable.find({
     isDeleted: false,
     isFeatured: true,
   });
@@ -57,28 +60,49 @@ router.get("/meditate/detail/:id", async function (req, res, next) {
 });
 
 router.get("/resolution", async function (req, res, next) {
-  const resolutions = await Resolution.find({ isDeleted: false });
+  const resolutions = await ResolutionTable.find({ isDeleted: false });
   res.render("resolution", { __: res.__, resolutions: resolutions });
 });
 
 router.get("/resolution/:id", async function (req, res, next) {
-  const resolution = await Resolution.findById(req.params.id);
-  res.render("resolutionDetail", { __: res.__, resolution: resolution });
+  const resolution = await ResolutionTable.findById(req.params.id);
+  res.render("resolutionDetail-v2", { __: res.__, resolution: resolution });
 });
 
-router.get("/dharma", function (req, res, next) {
-  res.render("dharma", { __: res.__ });
+router.get("/dhamma", async function (req, res, next) {
+  const guides = await Guide.find({ isDeleted: false }).sort({ created: -1 });
+  res.render("dharma", { __: res.__, guides: guides });
+});
+
+router.get("/dhamma/detail/:id", async function (req, res, next) {
+  const guide = await Guide.findById(req.params.id).populate(
+    "comments.userId",
+    "name avatar"
+  );
+  res.render("guideDetail", { __: res.__, guide: guide });
 });
 
 router.get("/abhidhamma", async function (req, res, next) {
-  const abhidhammas = await Abhidhamma.find({ isDeleted: false }).sort({
+  var query = { isDeleted: false };
+  var filterValue = "";
+  if (req.query.category) {
+    filterValue = req.query.category;
+    query = { category: filterValue, isDeleted: false };
+  }
+  const abhidhammas = await AbhidhammaQuestion.find(query).sort({
     created: -1,
   });
-  res.render("abhidhamma", { __: res.__, abhidhammas: abhidhammas });
+
+  res.render("abhidhamma", {
+    __: res.__,
+    abhidhammas: abhidhammas,
+    filterValue: filterValue,
+  });
 });
 
 router.get("/abhidhamma/:id", async function (req, res, next) {
-  const abhidhamma = await Abhidhamma.findById(req.params.id);
+  const abhidhamma = await AbhidhammaQuestion.findById(req.params.id);
+  console.log(abhidhamma);
   res.render("abhidhammaDetail", { __: res.__, abhidhamma: abhidhamma });
 });
 

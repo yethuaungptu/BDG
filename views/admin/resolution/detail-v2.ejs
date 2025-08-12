@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide Admin</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="drawer lg:drawer-open">
+        <input id="left-sidebar-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+          <div class="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+            <div class="flex-1">
+              <label
+                for="left-sidebar-drawer"
+                class="btn btn-primary drawer-button lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="h-5 inline-block w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  ></path>
+                </svg>
+              </label>
+              <h1 class="text-2xl font-semibold ml-2"></h1>
+            </div>
+          </div>
+          <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
+            <div class="max-w-6xl mx-auto p-6 space-y-6">
+              <h1 class="text-3xl font-bold mb-2">
+                <%= resolution.titleMM %> / <%= resolution.titleEN %>
+              </h1>
+              <p class="text-gray-500 mb-4">
+                Created: <%= resolution.created.toLocaleString() %>
+              </p>
+              <% if (resolution.image) { %>
+              <img
+                src="<%= resolution.image %>"
+                alt="Resolution Image"
+                class="w-full max-w-md mb-6 rounded-lg shadow"
+              />
+              <% } %> <% if (resolution.remark) { %>
+              <div class="bg-yellow-100 p-3 rounded mb-6">
+                <strong>Remark:</strong> <%= resolution.remark %>
+              </div>
+              <% } %>
+              <p><strong>Start Day:</strong> <%= resolution.startDay %></p>
+              <p>
+                <strong>Duration:</strong> <%= resolution.durationDays %> days
+              </p>
+
+              <hr class="my-6" />
+              <div>
+                <h2 class="text-2xl font-semibold mb-2">Content (MM)</h2>
+                <div class="prose" style="white-space: pre-line">
+                  <%- resolution.contentMM %>
+                </div>
+
+                <h2 class="text-2xl font-semibold mt-6 mb-2">Content (EN)</h2>
+                <div class="prose" style="white-space: pre-line">
+                  <%- resolution.contentEN %>
+                </div>
+              </div>
+              <hr class="my-6" />
+              <% if (resolution.steps && resolution.steps.length) { %>
+              <h2 class="text-2xl font-semibold mb-4">Steps</h2>
+              <ol class="list-decimal ml-6 space-y-2">
+                <% resolution.steps.forEach(step => { %>
+                <li>
+                  <strong>Step <%= step.number %></strong><br />
+                  <span class="block"><%= step.descriptionMM %></span>
+                  <span class="block text-gray-600"
+                    ><%= step.descriptionEN %></span
+                  >
+                </li>
+                <% }) %>
+              </ol>
+              <% } %>
+              <hr class="my-6" />
+              <% if (resolution.table && resolution.table.length) { %>
+              <h2 class="text-2xl font-semibold mb-4">
+                Myanmar Resolution Table
+              </h2>
+
+              <div class="overflow-x-auto">
+                <table class="table w-full border table-sm">
+                  <tbody>
+                    <% resolution.table.forEach(row => { %>
+                    <tr class="">
+                      <td class="border text-lg font-bold">
+                        <%= row.rowTitleMM %>
+                      </td>
+                      <% row.colData.forEach(col => { %>
+                      <td
+                        class="border text-center py-3 align-top <%= col.isSpecial ? 'bg-green-300' : '' %>"
+                      >
+                        <p>
+                          <strong class="text-red-500"
+                            ><%= col.titleMM %></strong
+                          >
+                        </p>
+                        <% if (col.subTitleMM) { %>
+                        <p>
+                          <strong><%= col.subTitleMM %></strong>
+                        </p>
+                        <% } %>
+                        <p class="text-md">
+                          <strong>(<%= col.roundMM %>) ပတ်</strong>
+                        </p>
+                      </td>
+                      <% }) %>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </div>
+              <% } %>
+              <div class="divider"></div>
+              <div class="card-actions justify-end">
+                <% if(resolution.isFeatured){%>
+                <button class="btn btn-warning" onclick="changeFeature(false);">
+                  Remove featured
+                </button>
+                <%}else{%>
+                <button class="btn btn-warning" onclick="changeFeature(true);">
+                  Set as featured
+                </button>
+                <%}%>
+                <button class="btn btn-error" onclick="deleteResolution()">
+                  Delete
+                </button>
+                <a
+                  class="btn btn-info"
+                  href="/admin/resolution/update/<%= resolution._id %>"
+                  >Update</a
+                >
+              </div>
+            </div>
+          </main>
+        </div>
+        <% include ../../partial/adminDrawer %>
+      </div>
+    </div>
+  </body>
+  <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function () {
+      $("#contentMM").html(`<%- resolution.contentMM %>`);
+      $("#contentEN").html(`<%- resolution.contentEN %>`);
+    });
+    function changeFeature(isFeatured) {
+      $.ajax({
+        url: "/admin/resolution/feature",
+        type: "POST",
+        data: {
+          resolutionId: "<%= resolution._id %>",
+          isFeatured: isFeatured,
+        },
+        success: function (response) {
+          if (response.status === "success") {
+            window.location.reload();
+          } else {
+            alert("Error updating feature status.");
+          }
+        },
+        error: function () {
+          alert("Error connecting to the server.");
+        },
+      });
+    }
+    function deleteResolution() {
+      if (!confirm("Are you sure you want to delete this?")) {
+        return;
+      }
+      $.ajax({
+        url: "/admin/resolution/delete",
+        type: "POST",
+        data: {
+          resolutionId: "<%= resolution._id %>",
+        },
+        success: function (response) {
+          if (response.status === "success") {
+            location.href = "/admin/resolution";
+          } else {
+            alert("Error deleting tip");
+          }
+        },
+        error: function () {
+          alert("Error connecting to the server.");
+        },
+      });
+    }
+  </script>
+</html>

@@ -1,198 +1,235 @@
 <!DOCTYPE html>
 <html data-theme="BDG">
   <head>
-    <title>Buddhism Dhamma Guide</title>
-    <link rel="stylesheet" href="/stylesheets/pdfStyle.css" />
+    <title>Buddhism Dhamma Guide Admin</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/aos.css" />
-    <link rel="stylesheet" href="/stylesheets/swiper-bundle.min.css" />
-    <script src="/javascripts/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/pdfStyle.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-    <% include ./partial/navbar.ejs %>
-
-    <div class="aos-all h-screen">
-      <div
-        class="card w-full p-6 bg-base-100 border border-base-300 shadow-xl mt-2"
-      >
-        <div class="text-xl font-semibold items-center">
-          <%= abhidhamma.title %>(သုတဓမ္မဒီပလိုမာ Level- <%= abhidhamma.category
-          == "level1"? "1" : abhidhamma.category == "level2"? "2" :
-          abhidhamma.category == "level3"? "3":"1,2,3" %>)
-        </div>
-
-        <div class="divider mt-2"></div>
-        <div class="card bg-base-100 shadow-sm">
-          <div class="card-body">
-            <div class="text-lg col-span-full">
-              <%= abhidhamma.description %>
-            </div>
-            <div class="app-container container mx-auto mt-1 lg:mt-5">
-              <!-- Top Toolbar -->
-              <div
-                class="top-toolbar grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7"
+    <div id="root">
+      <div class="drawer lg:drawer-open">
+        <input id="left-sidebar-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+          <div class="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+            <div class="flex-1">
+              <label
+                for="left-sidebar-drawer"
+                class="btn btn-primary drawer-button lg:hidden"
               >
-                <div class="toolbar-group">
-                  <!-- <button class="btn" onclick="printPdf()">🖨️ Print</button> -->
-                  <button class="btnPdf" onclick="downloadPdf()">
-                    💾 Save
-                  </button>
-                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="h-5 inline-block w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  ></path>
+                </svg>
+              </label>
+              <h1 class="text-2xl font-semibold ml-2"></h1>
+            </div>
+          </div>
+          <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
+            <div
+              class="max-w-full mx-auto bg-base-100 shadow-xl rounded-xl p-6 space-y-6"
+            >
+              <!-- Blog Title -->
+              <h1 class="text-2xl font-bold text-primary">
+                <%= abhidhamma.title %> (<%= abhidhamma.category %>)
+              </h1>
 
-                <div class="toolbar-separator"></div>
-
-                <div class="toolbar-group">
-                  <button class="icon-btn" onclick="zoomOut()" title="Zoom Out">
-                    −
-                  </button>
-                  <select
-                    class="zoom-select"
-                    id="zoomSelect"
-                    onchange="setZoom()"
-                  >
-                    <option value="0.5">50%</option>
-                    <option value="0.75">75%</option>
-                    <option value="1" selected>100%</option>
-                    <option value="1.25">125%</option>
-                    <option value="1.5">150%</option>
-                    <option value="2">200%</option>
-                    <option value="fit-width">Fit Width</option>
-                    <option value="fit-page">Fit Page</option>
-                  </select>
-                  <button class="icon-btn" onclick="zoomIn()" title="Zoom In">
-                    +
-                  </button>
-                </div>
-
-                <div class="toolbar-separator"></div>
-
-                <div class="toolbar-group">
-                  <button
-                    class="icon-btn"
-                    onclick="prevPage()"
-                    id="prevBtn"
-                    title="Previous Page"
-                  >
-                    ◀
-                  </button>
-                  <input
-                    type="number"
-                    class="page-input"
-                    id="pageInput"
-                    min="1"
-                    onchange="goToPage()"
-                  />
-                  <span style="font-size: 12px"
-                    >/ <span id="totalPages">0</span></span
-                  >
-                  <button
-                    class="icon-btn"
-                    onclick="nextPage()"
-                    id="nextBtn"
-                    title="Next Page"
-                  >
-                    ▶
-                  </button>
-                </div>
-
-                <div class="toolbar-separator"></div>
-
-                <div class="toolbar-group">
-                  <button
-                    class="icon-btn"
-                    onclick="toggleSidebar()"
-                    id="sidebarToggle"
-                    title="Toggle Sidebar"
-                  >
-                    ☰
-                  </button>
-                  <button
-                    class="icon-btn"
-                    onclick="rotatePages()"
-                    title="Rotate"
-                  >
-                    ↻
-                  </button>
-                </div>
-              </div>
-
-              <!-- Main Content -->
-              <div class="main-content">
-                <!-- Sidebar -->
-                <div class="sidebar" id="sidebar">
-                  <div class="sidebar-tabs">
-                    <button
-                      class="sidebar-tab active"
-                      onclick="showSidebarTab('thumbnails')"
-                    >
-                      Thumbnails
-                    </button>
-                    <button
-                      class="sidebar-tab"
-                      onclick="showSidebarTab('search')"
-                    >
-                      Search
+              <div class="divider"></div>
+              <div class="text-lg"><%= abhidhamma.description %></div>
+              <div class="app-container container">
+                <!-- Top Toolbar -->
+                <div
+                  class="top-toolbar grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7"
+                >
+                  <div class="toolbar-group">
+                    <!-- <button class="btnPdf" onclick="printPdf()">
+                      🖨️ Print
+                    </button> -->
+                    <button class="btnPdf" onclick="downloadPdf()">
+                      💾 Save
                     </button>
                   </div>
 
-                  <div id="thumbnails-tab" class="sidebar-content">
-                    <div id="thumbnailContainer"></div>
+                  <div class="toolbar-separator"></div>
+
+                  <div class="toolbar-group">
+                    <button
+                      class="icon-btn"
+                      onclick="zoomOut()"
+                      title="Zoom Out"
+                    >
+                      −
+                    </button>
+                    <select
+                      class="zoom-select"
+                      id="zoomSelect"
+                      onchange="setZoom()"
+                    >
+                      <option value="0.5">50%</option>
+                      <option value="0.75">75%</option>
+                      <option value="1" selected>100%</option>
+                      <option value="1.25">125%</option>
+                      <option value="1.5">150%</option>
+                      <option value="2">200%</option>
+                      <option value="fit-width">Fit Width</option>
+                      <option value="fit-page">Fit Page</option>
+                    </select>
+                    <button class="icon-btn" onclick="zoomIn()" title="Zoom In">
+                      +
+                    </button>
                   </div>
 
-                  <div
-                    id="search-tab"
-                    class="sidebar-content"
-                    style="display: none"
-                  >
-                    <div class="search-container">
-                      <input
-                        type="text"
-                        class="search-input"
-                        id="searchInput"
-                        placeholder="Search in document..."
-                        onkeyup="searchInPdf(event)"
-                      />
-                      <div class="search-results" id="searchResults"></div>
+                  <div class="toolbar-separator"></div>
+
+                  <div class="toolbar-group">
+                    <button
+                      class="icon-btn"
+                      onclick="prevPage()"
+                      id="prevBtn"
+                      title="Previous Page"
+                    >
+                      ◀
+                    </button>
+                    <input
+                      type="number"
+                      class="page-input"
+                      id="pageInput"
+                      min="1"
+                      onchange="goToPage()"
+                    />
+                    <span style="font-size: 12px"
+                      >/ <span id="totalPages">0</span></span
+                    >
+                    <button
+                      class="icon-btn"
+                      onclick="nextPage()"
+                      id="nextBtn"
+                      title="Next Page"
+                    >
+                      ▶
+                    </button>
+                  </div>
+
+                  <div class="toolbar-separator"></div>
+
+                  <div class="toolbar-group">
+                    <button
+                      class="icon-btn"
+                      onclick="toggleSidebar()"
+                      id="sidebarToggle"
+                      title="Toggle Sidebar"
+                    >
+                      ☰
+                    </button>
+                    <button
+                      class="icon-btn"
+                      onclick="rotatePages()"
+                      title="Rotate"
+                    >
+                      ↻
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                  <!-- Sidebar -->
+                  <div class="sidebar" id="sidebar">
+                    <div class="sidebar-tabs">
+                      <button
+                        class="sidebar-tab active"
+                        onclick="showSidebarTab('thumbnails')"
+                      >
+                        Thumbnails
+                      </button>
+                      <button
+                        class="sidebar-tab"
+                        onclick="showSidebarTab('search')"
+                      >
+                        Search
+                      </button>
                     </div>
-                  </div>
-                </div>
 
-                <!-- Viewer -->
-                <div class="viewer-container">
-                  <div class="viewer-content" id="viewerContent">
-                    <div class="welcome">
-                      <div>📄</div>
-                      <div>Load a PDF file to start reading</div>
-                      <div style="margin-top: 16px">
+                    <div id="thumbnails-tab" class="sidebar-content">
+                      <div id="thumbnailContainer"></div>
+                    </div>
+
+                    <div
+                      id="search-tab"
+                      class="sidebar-content"
+                      style="display: none"
+                    >
+                      <div class="search-container">
                         <input
                           type="text"
-                          id="welcomePathInput"
-                          placeholder="Enter server file path (e.g., /docs/manual.pdf)"
-                          style="
-                            padding: 8px 12px;
-                            border: 1px solid #ccc;
-                            border-radius: 3px;
-                            width: 300px;
-                            margin-right: 8px;
-                          "
-                          value="<%= abhidhamma.pdfFilePath %>"
+                          class="search-input"
+                          id="searchInput"
+                          placeholder="Search in document..."
+                          onkeyup="searchInPdf(event)"
                         />
+                        <div class="search-results" id="searchResults"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Viewer -->
+                  <div class="viewer-container">
+                    <div class="viewer-content" id="viewerContent">
+                      <div class="welcome">
+                        <div>📄</div>
+                        <div>Load a PDF file to start reading</div>
+                        <div style="margin-top: 16px">
+                          <input
+                            type="text"
+                            id="welcomePathInput"
+                            placeholder="Enter server file path (e.g., /docs/manual.pdf)"
+                            style="
+                              padding: 8px 12px;
+                              border: 1px solid #ccc;
+                              border-radius: 3px;
+                              width: 300px;
+                              margin-right: 8px;
+                            "
+                            value="<%= abhidhamma.pdfFilePath %>"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="divider"></div>
+              <div class="card-actions justify-end">
+                <button class="btnPdf btn-error" onclick="deleteAB()">
+                  Delete
+                </button>
+                <a
+                  class="btnPdf btn-info"
+                  href="/admin/abhidhamma/update/<%= abhidhamma._id %>"
+                  >Update</a
+                >
+              </div>
             </div>
-          </div>
+            <div class="h-16"></div>
+          </main>
         </div>
+        <% include ../../partial/adminDrawer %>
       </div>
     </div>
-    <% include ./partial/footer.ejs %>
   </body>
   <script src="/javascripts/jquery-3.7.1.min.js"></script>
-  <script src="/javascripts/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
     let pdfDoc = null;
@@ -630,6 +667,28 @@
     });
   </script>
   <script>
+    function deleteAB() {
+      if (!confirm("Are you sure you want to delete this?")) {
+        return;
+      }
+      $.ajax({
+        url: "/admin/abhidhamma/delete",
+        type: "POST",
+        data: {
+          abhidhammaId: "<%= abhidhamma._id %>",
+        },
+        success: function (response) {
+          if (response.status === "success") {
+            location.href = "/admin/abhidhamma";
+          } else {
+            alert("Error deleting tip");
+          }
+        },
+        error: function () {
+          alert("Error connecting to the server.");
+        },
+      });
+    }
     $(async function () {
       await loadFromWelcomePath();
     });

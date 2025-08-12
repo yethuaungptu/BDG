@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/aos.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ../partial/navbar.ejs %>
+
+    <div class="aos-all py-auto min-h-screen">
+      <div class="max-w-4xl mx-auto p-6 card bg-base-100 shadow-sm my-5">
+        <div class="card bg-base-100 shadow-sm my-2">
+          <div class="card-body">
+            <div class="card-title">My Joined Resolution</div>
+            <div class="overflow-x-auto">
+              <table class="table table-zebra">
+                <!-- head -->
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Title MM</th>
+                    <th>Title EN</th>
+                    <th>Duration</th>
+                    <th>Joined</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i = 0; i < history.resolutionList.length;i++){%>
+                  <tr>
+                    <th><%= i+1 %></th>
+                    <td><%= history.resolutionList[i].id.titleMM %></td>
+                    <td><%= history.resolutionList[i].id.titleEN %></td>
+                    <td><%= history.resolutionList[i].id.durationDays %></td>
+                    <td>
+                      <%= new
+                      Date(history.resolutionList[i].created).toLocaleDateString()
+                      %>
+                    </td>
+                  </tr>
+                  <%}%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% include ../partial/footer.ejs %>
+  </body>
+</html>
