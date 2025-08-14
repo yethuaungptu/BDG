@@ -23,7 +23,16 @@
         class="menu menu-sm dropdown-content text-secondary bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
       >
         <li><a href="/"><%= __('nav.home') %></a></li>
-        <li><a href="/gsp"><%= __('nav.gsp') %></a></li>
+        <li>
+        <details>
+          <summary><%= __('nav.gsp') %></summary>
+          <ul class="p-2">
+            <li><a href="/gsp?category=ဓမ္မဂါထာ"><%= __('nav.gspList.gatha') %></a></li>
+            <li><a href="/gsp?category=သုတ္တန်"><%= __('nav.gspList.sutta') %></a></li>
+            <li><a href="/gsp?category=ဘုရား၀တ်ပြုနည်း"><%= __('nav.gspList.pray') %></a></li>
+          </ul>
+        </details>
+        </li>
         <li><a href="/meditate"><%= __('nav.meditate') %></a></li>
         <li><a href="/resolution"><%= __('nav.resolution') %></a></li>
         <li><a href="/dhamma"><%= __('nav.dhamma') %></a></li>
@@ -31,7 +40,7 @@
         <details>
           <summary><%= __('nav.abhidhamma') %></summary>
           <ul class="p-2">
-            <li><a href="/abhidhamma?category=level1">သုတဓမ္မဒီပလိုမာ Level-1</a></li>
+            <li><a href="/abhidhamma?category=level1">သုတဓမ္မဒီပလိုမာ Level-11</a></li>
             <li><a href="/abhidhamma?category=level2">သုတဓမ္မဒီပလိုမာ Level-2</a></li>
             <li><a href="/abhidhamma?category=level3">သုတဓမ္မဒီပလိုမာ Level-3</a></li>
           </ul>
@@ -56,14 +65,23 @@
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal text-secondary px-1">
       <li><a href="/"><%= __('nav.home') %></a></li>
-      <li><a href="/gsp"><%= __('nav.gsp') %></a></li>
+      <li>
+        <details >
+          <summary><%= __('nav.gsp') %></summary>
+          <ul class="p-2 z-1001 w-52">
+             <li><a href="/gsp?category=ဓမ္မဂါထာ"><%= __('nav.gspList.gatha') %></a></li>
+            <li><a href="/gsp?category=သုတ္တန်"><%= __('nav.gspList.sutta') %></a></li>
+            <li><a href="/gsp?category=ဘုရား၀တ်ပြုနည်း"><%= __('nav.gspList.pray') %></a></li>
+          </ul>
+        </details>
+      </li>
       <li><a href="/meditate"><%= __('nav.meditate') %></a></li>
       <li><a href="/resolution"><%= __('nav.resolution') %></a></li>
       <li><a href="/dhamma"><%= __('nav.dhamma') %></a></li>
         <li>
-        <details>
+        <details >
           <summary><%= __('nav.abhidhamma') %></summary>
-          <ul class="p-2 z-1001">
+          <ul class="p-2 z-1001 w-52">
             <li><a href="/abhidhamma?category=level1">သုတဓမ္မဒီပလိုမာ Level-1</a></li>
             <li><a href="/abhidhamma?category=level2">သုတဓမ္မဒီပလိုမာ Level-2</a></li>
             <li><a href="/abhidhamma?category=level3">သုတဓမ္မဒီပလိုမာ Level-3</a></li>

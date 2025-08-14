@@ -2,32 +2,34 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 var moment = require("moment-timezone");
 
-const QuizSchema = new Schema({
-  title: {
-    type: String,
+const TakeQuizSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User", // Assuming you have a User model
     required: true,
   },
-  description: {
-    type: String,
+  quiz: {
+    type: Schema.Types.ObjectId,
+    ref: "Quiz",
     required: true,
   },
-  category: {
-    type: String,
-    required: true,
-  },
-  durationMinutes: {
-    type: Number,
-    default: 1,
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-  questions: [
+  answers: [
     {
       question: {
         type: String,
         required: true,
+      },
+      answer: {
+        type: String,
+        required: true,
+      },
+      correctAnswer: {
+        type: String,
+        required: true,
+      },
+      isCorrect: {
+        type: Boolean,
+        default: false,
       },
       optionA: {
         type: String,
@@ -45,20 +47,19 @@ const QuizSchema = new Schema({
         type: String,
         required: true,
       },
-      correctAnswer: {
-        type: String,
-        required: true,
-      },
     },
   ],
+  totalScore: {
+    type: Number,
+    required: true,
+  },
   created: {
     type: Date,
     default: moment.utc(Date.now()).tz("Asia/Yangon").format(),
   },
-  updated: {
-    type: Date,
-    default: moment.utc(Date.now()).tz("Asia/Yangon").format(),
+  durationTaken: {
+    type: String,
   },
 });
 
-module.exports = mongoose.model("Quiz", QuizSchema);
+module.exports = mongoose.model("TakeQuiz", TakeQuizSchema);

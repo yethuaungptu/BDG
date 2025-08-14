@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/aos.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ../partial/navbar.ejs %>
+
+    <div class="aos-all py-auto min-h-screen">
+      <div class="text-center text-2xl my-3">Quiz Detail</div>
+      <div class="max-w-4xl mx-auto p-6 card bg-base-100 shadow-sm my-5">
+        <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+          <div
+            class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
+            <div class="stat bg-base-200 rounded-lg">
+              <div class="stat-title">Score</div>
+              <div class="stat-value text-primary">
+                <%= takenQuiz.totalScore %> 
+              </div>
+            </div>
+            <div class="stat bg-base-200 rounded-lg">
+              <div class="stat-title">Duration</div>
+              <div class="stat-value"><%= takenQuiz.durationTaken %></div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+        <% for(var i = 0; i < takenQuiz.answers.length;i++){%>
+        <div
+          class="collapse collapse-arrow bg-base-100 shadow border border-gray-200 my-2"
+        >
+          <input type="checkbox" />
+          <div class="collapse-title font-medium">
+            <%= takenQuiz.answers[i].question %>
+          </div>
+          <div class="collapse-content">
+            <p>
+              <strong>Your Answer:</strong> <%= takenQuiz.answers[i].answer %>
+            </p>
+            <% if(takenQuiz.answers[i].isCorrect){%>
+            <p class="text-sm text-green-500">Correct</p>
+
+            <%}else{%>
+            <p class="text-sm text-red-500">
+              Incorrect — Correct answer: <%= takenQuiz.answers[i].correctAnswer
+              %>
+            </p>
+            <%}%>
+          </div>
+          </div>
+          <%}%>
+
+          <!-- <div
+          class="collapse collapse-arrow bg-base-100 shadow border border-gray-200"
+        >
+          <input type="checkbox" />
+          <div class="collapse-title font-medium">
+            2. What is the chemical formula of water?
+          </div>
+          <div class="collapse-content">
+            <p><strong>Your Answer:</strong> H2O2 ❌</p>
+            <p class="text-sm text-red-500">Incorrect — Correct answer: H2O</p>
+          </div>
+        </div> -->
+
+          <!-- Repeat for each question -->
+        </div>
+      </div>
+    </div>
+    <% include ../partial/footer.ejs %>
+  </body>
+</html>

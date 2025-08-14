@@ -2,18 +2,21 @@
   "nav": {
     "home": "Home",
     "dashboard": "Dashboard",
-    "gsp": "Gatha Sutta and Pray",
+    "gsp": "Dhamma Guide",
     "meditate": "Meditation",
     "resolution": "Resolution",
-    "dhamma": "Dhamma Guide",
-    "abhidhamma": "Abhidhamma's Old Questions",
+    "dhamma": "Dhamma Videos",
+    "abhidhamma": "Wisdom Land",
     "account": "Login/Register",
     "logout": "Logout",
     "lang": "မြန်မာ",
-    "guide": "nav.guide",
-    "dharma": "nav.dharma",
     "profile": "Profile",
-    "quiz": "Quiz"
+    "quiz": "Quiz",
+    "gspList": {
+      "gatha": "Gatha",
+      "sutta": "Sutta",
+      "pray": "Pray"
+    }
   },
   "create": "Create",
   "list": "List",

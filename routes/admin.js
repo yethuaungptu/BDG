@@ -8,15 +8,57 @@ var resolutionController = require("../controllers/resolutionController");
 var guideController = require("../controllers/guideController");
 var quizController = require("../controllers/quizController");
 
+var abhidhammaQuestionModel = require("../models/AbhidhammaQuestion");
+var GSP = require("../models/GSP");
+var Guide = require("../models/Guide");
+var Meditate = require("../models/Meditate");
+var Quiz = require("../models/Quiz");
+var ResolutionTable = require("../models/ResolutionTable");
+var User = require("../models/User");
+var TakenQuiz = require("../models/TakenQuiz");
+
+const checkAdmin = function (req, res, next) {
+  if (req.session.admin) {
+    next();
+  } else {
+    res.redirect("/adminLogin");
+  }
+};
+
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.render("admin/index", { __: res.__ });
+router.get("/", checkAdmin, async function (req, res, next) {
+  const ABCount = await abhidhammaQuestionModel.countDocuments({
+    isDeleted: false,
+  });
+  const GSPCount = await GSP.countDocuments({ isDeleted: false });
+  const GuideCount = await Guide.countDocuments({ isDeleted: false });
+  const MeditateCount = await Meditate.countDocuments({ isDeleted: false });
+  const QuizCount = await Quiz.countDocuments({ isDeleted: false });
+  const RECount = await ResolutionTable.countDocuments({ isDeleted: false });
+  const UserCount = await User.countDocuments();
+  const TakenQuizCount = await TakenQuiz.countDocuments();
+  res.render("admin/index", {
+    __: res.__,
+    ABCount: ABCount,
+    GSPCount: GSPCount,
+    GuideCount: GuideCount,
+    MeditateCount: MeditateCount,
+    QuizCount: QuizCount,
+    RECount: RECount,
+    UserCount: UserCount,
+    TakenQuizCount: TakenQuizCount,
+  });
 });
 
-router.use("/gsp", gspController);
-router.use("/meditate", meditateController);
-router.use("/abhidhamma", abhidhammaQuestion);
-router.use("/resolution", resolutionController);
-router.use("/guide", guideController);
-router.use("/quiz", quizController);
+router.get("/logout", checkAdmin, function (req, res, next) {
+  req.session.destroy();
+  res.redirect("/");
+});
+
+router.use("/gsp", checkAdmin, gspController);
+router.use("/meditate", checkAdmin, meditateController);
+router.use("/abhidhamma", checkAdmin, abhidhammaQuestion);
+router.use("/resolution", checkAdmin, resolutionController);
+router.use("/guide", checkAdmin, guideController);
+router.use("/quiz", checkAdmin, quizController);
 module.exports = router;

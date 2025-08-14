@@ -25,12 +25,14 @@
                 class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
               >
                 <h2 class="text-3xl lg:text-5xl font-bold drop-shadow-md">
-                  Test Title
+                  Resolution
                 </h2>
                 <p class="text-sm lg:text-lg max-w-md drop-shadow-md">
-                  Test Description
+                  Find resolution for your way
                 </p>
-                <a href="/" class="btn btn-primary">Check Somethings</a>
+                <a href="/resolution" class="btn btn-primary"
+                  >Explore Resolution</a
+                >
               </div>
             </div>
           </div>
@@ -41,12 +43,14 @@
                 class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
               >
                 <h2 class="text-3xl lg:text-5xl font-bold drop-shadow-md">
-                  Test Title
+                  Meditation
                 </h2>
                 <p class="text-sm lg:text-lg max-w-md drop-shadow-md">
-                  Test Description
+                  Quick meditation tips.
                 </p>
-                <a href="/" class="btn btn-primary">Check Somethings</a>
+                <a href="/meditate" class="btn btn-primary"
+                  >Explore Meditation</a
+                >
               </div>
             </div>
           </div>
@@ -57,12 +61,12 @@
                 class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
               >
                 <h2 class="text-3xl lg:text-5xl font-bold drop-shadow-md">
-                  Test Title
+                  Dhamma
                 </h2>
                 <p class="text-sm lg:text-lg max-w-md drop-shadow-md">
-                  Test Description
+                  Learn Dhamma Guide.
                 </p>
-                <a href="/" class="btn btn-primary">Check Somethings</a>
+                <a href="/gsp" class="btn btn-primary">Explore Dhamma Guide</a>
               </div>
             </div>
           </div>
@@ -144,45 +148,24 @@
       </div>
       <div class="bg-cyan-200 px-4" data-aos="fade-up">
         <div class="text-center text-3xl lg:text-3xl font-thin italic p-2">
-          <%= __('featured')+ ' '+ __('nav.dharma') %>
+          <%= __('featured')+ ' '+ __('nav.dhamma') %>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
+          <% for(var i = 0; i < featuredGuide.length;i++){%>
           <div class="card w-full bg-base-100 card-sm shadow-sm">
             <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
+              <h2 class="card-title"><%= featuredGuide[i].title %></h2>
+              <p><%= featuredGuide[i].summary %></p>
               <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
+                <a
+                  href="/dhamma/detail/<%= featuredGuide[i]._id %>"
+                  class="btn btn-primary"
+                  >See More</a
+                >
               </div>
             </div>
           </div>
-          <div class="card w-full bg-base-100 card-sm shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
-              <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
-              </div>
-            </div>
-          </div>
-          <div class="card w-full bg-base-100 card-sm shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title">Test</h2>
-              <p>
-                A card component has a figure, a body part, and inside body
-                there are title and actions parts
-              </p>
-              <div class="justify-end card-actions">
-                <button class="btn btn-primary">See More</button>
-              </div>
-            </div>
-          </div>
+          <%}%>
         </div>
       </div>
     </div>

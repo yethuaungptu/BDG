@@ -4,7 +4,7 @@ var Quiz = require("../models/Quiz");
 var moment = require("moment-timezone");
 
 router.get("/", async function (req, res) {
-  const quiz = await Quiz.find().sort({ created: -1 });
+  const quiz = await Quiz.find({ isDeleted: false }).sort({ created: -1 });
   res.render("admin/quiz/index", {
     __: res.__,
     quiz: quiz,
@@ -31,62 +31,57 @@ router.post("/create", async function (req, res) {
   }
 });
 
-// router.get("/detail/:id", async function (req, res) {
-//   try {
-//     const meditate = await Meditate.findById(req.params.id);
-//     res.render("admin/meditate/detail", { meditate: meditate, __: res.__ });
-//   } catch (e) {
-//     console.log(e);
-//     res.redirect("/admin/meditate");
-//   }
-// });
+router.get("/detail/:id", async function (req, res) {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+    res.render("admin/quiz/detail", { quiz: quiz, __: res.__ });
+  } catch (e) {
+    console.log(e);
+    res.redirect("/admin/quiz");
+  }
+});
 
-// router.post("/delete", async function (req, res) {
-//   try {
-//     const update = {
-//       isDeleted: true,
-//       updated: moment.utc(Date.now()).tz("Asia/Yangon").format(),
-//     };
-//     await Meditate.findByIdAndUpdate(req.body.meditateId, { $set: update });
-//     res.json({ status: "success" });
-//   } catch (e) {
-//     console.error("Error deleting tip:", e);
-//     res.json({ status: "error" });
-//   }
-// });
+router.post("/delete", async function (req, res) {
+  try {
+    const update = {
+      isDeleted: true,
+      updated: moment.utc(Date.now()).tz("Asia/Yangon").format(),
+    };
+    await Quiz.findByIdAndUpdate(req.body.quizId, { $set: update });
+    res.json({ status: "success" });
+  } catch (e) {
+    console.error("Error deleting tip:", e);
+    res.json({ status: "error" });
+  }
+});
 
-// router.get("/update/:id", async function (req, res) {
-//   try {
-//     const meditate = await Meditate.findById(req.params.id);
-//     res.render("admin/meditate/update", { meditate: meditate, __: res.__ });
-//   } catch (e) {
-//     console.log(e);
-//     res.redirect("/admin/meditate");
-//   }
-// });
+router.get("/update/:id", async function (req, res) {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+    res.render("admin/quiz/update", { quiz: quiz, __: res.__ });
+  } catch (e) {
+    console.log(e);
+    res.redirect("/admin/quiz");
+  }
+});
 
-// router.post("/update", async function (req, res) {
-//   try {
-//     const update = {
-//       title: req.body.title,
-//       guider: req.body.guider,
-//       level: req.body.level,
-//       mediaType: req.body.mediaType,
-//       mediaUrl: req.body.mediaUrl,
-//       minutes: req.body.minutes,
-//       seconds: req.body.seconds,
-//       description: req.body.description,
-//       steps: req.body.steps ? req.body.steps : [],
-//       helps: req.body.helps ? req.body.helps : [],
-//       updated: moment.utc(Date.now()).tz("Asia/Yangon").format(),
-//     };
-//     await Meditate.findByIdAndUpdate(req.body.id, { $set: update });
-//     res.redirect("/admin/meditate");
-//   } catch (e) {
-//     console.log(e);
-//     res.redirect("/admin/meditate/detail/" + req.body.id);
-//   }
-// });
+router.post("/update", async function (req, res) {
+  try {
+    const update = {
+      title: req.body.title,
+      durationMinutes: req.body.durationMinutes,
+      category: req.body.category,
+      description: req.body.description,
+      questions: req.body.questions ? req.body.questions : [],
+      updated: moment.utc(Date.now()).tz("Asia/Yangon").format(),
+    };
+    await Quiz.findByIdAndUpdate(req.body.id, { $set: update });
+    res.redirect("/admin/quiz");
+  } catch (e) {
+    console.log(e);
+    res.redirect("/admin/quiz/detail/" + req.body.id);
+  }
+});
 
 // router.post("/feature", async function (req, res) {
 //   try {

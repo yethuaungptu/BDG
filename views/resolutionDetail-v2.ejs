@@ -147,7 +147,7 @@
           You joined this resolution, check at your profile
         </a>
         <%}else{%>
-        <button class="btn btn-primary" onclick="joinResolution()">
+        <button class="btn btn-primary" <%= locals.user.isVerified ? "": "disabled" %> onclick="joinResolution()">
           Join Resolution
         </button>
         <%}%>

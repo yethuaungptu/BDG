@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/aos.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ../partial/navbar.ejs %>
+
+    <div class="aos-all py-auto min-h-screen">
+      <div class="max-w-3xl mx-auto p-6">
+        <!-- Header -->
+        <div class="text-center mb-6">
+          <h1 class="text-3xl font-bold text-primary">
+            <%= quizDetail.title %>
+          </h1>
+          <p class="text-gray-500">
+            Answer carefully. You have <span id="timer">00:00</span>
+          </p>
+        </div>
+        <input
+          type="hidden"
+          id="duration"
+          value="<%= quizDetail.durationMinutes %>"
+        />
+        <form
+          action="/user/answerQuiz"
+          method="post"
+          id="exam-form"
+          class="space-y-6"
+        >
+          <input type="hidden" id="quizId" value="<%= quizDetail._id %>" />
+          <input type="hidden" name="duration" id="durationFinal" />
+          <% for(var i = 0; i < quizDetail.questions.length;i++){%>
+          <div
+            class="question-block p-4 bg-white shadow-md rounded quizContainer"
+          >
+            <input
+              type="hidden"
+              name="correctAnswer"
+              value="<%= quizDetail.questions[i].correctAnswer %>"
+            />
+            <p
+              class="font-semibold mb-2 question"
+              data-question="<%= quizDetail.questions[i].question %>"
+            >
+              <%= quizDetail.questions[i].question %>
+            </p>
+            <div
+              class="form-control flex justify-around grid grid-cols-1 lg:grid-cols-4 gap-2"
+            >
+              <label class="label cursor-pointer">
+                <input
+                  type="radio"
+                  name="answer<%= i+1 %>"
+                  value="<%= quizDetail.questions[i].optionA %>"
+                  class="radio checked:bg-blue-500 optionA"
+                />
+                <span class="label-text ml-2"
+                  ><%= quizDetail.questions[i].optionA %></span
+                >
+              </label>
+              <label class="label cursor-pointer">
+                <input
+                  type="radio"
+                  name="answer<%= i+1 %>"
+                  value="<%= quizDetail.questions[i].optionB %>"
+                  class="radio checked:bg-blue-500 optionB"
+                />
+                <span class="label-text ml-2"
+                  ><%= quizDetail.questions[i].optionB %></span
+                >
+              </label>
+              <label class="label cursor-pointer">
+                <input
+                  type="radio"
+                  name="answer<%= i+1 %>"
+                  value="<%= quizDetail.questions[i].optionC %>"
+                  class="radio checked:bg-blue-500 optionC"
+                />
+                <span class="label-text ml-2"
+                  ><%= quizDetail.questions[i].optionC %></span
+                >
+              </label>
+              <label class="label cursor-pointer">
+                <input
+                  type="radio"
+                  name="answer<%= i+1 %>"
+                  value="<%= quizDetail.questions[i].optionD %>"
+                  class="radio checked:bg-blue-500 optionD"
+                />
+                <span class="label-text ml-2"
+                  ><%= quizDetail.questions[i].optionD %></span
+                >
+              </label>
+            </div>
+          </div>
+          <%}%>
+          <!-- Submit -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit Quiz</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <% include ../partial/footer.ejs %>
+  </body>
+  <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    console.log($("#duration").val());
+    let duration = $("#duration").val() * 60;
+    const timerEl = document.getElementById("timer");
+    const interval = setInterval(() => {
+      const min = Math.floor(duration / 60);
+      const sec = duration % 60;
+      timerEl.textContent = `${String(min).padStart(2, "0")}:${String(
+        sec
+      ).padStart(2, "0")}`;
+      if (--duration < 0) {
+        clearInterval(interval);
+        alert("⏰ Time is up! Auto-submitting.");
+        // document.getElementById("exam-form").submit();
+        subForm();
+      }
+    }, 1000);
+
+    $("#exam-form").submit(function (event) {
+      $("#durationFinal").val($("#duration").val() * 60 - duration);
+      event.preventDefault(); // Prevent default form submission
+      subForm();
+    });
+    function subForm() {
+      let totalQuestions = "<%= quizDetail.questions.length %>";
+      let correctCount = 0;
+      let answers = [];
+
+      $(".question-block").each(function (index) {
+        let correctAnswer = $(this).find("input[name='correctAnswer']").val();
+        let selectedAnswer = $(this)
+          .find(`input[name='answer${index + 1}']:checked`)
+          .val();
+        let question = $(this).find(".question").data("question");
+        let optionA = $(this).find(".optionA").val();
+        let optionB = $(this).find(".optionB").val();
+        let optionC = $(this).find(".optionC").val();
+        let optionD = $(this).find(".optionD").val();
+        let isCorrect = selectedAnswer === correctAnswer;
+        if (isCorrect) correctCount++;
+
+        answers.push({
+          question: question,
+          optionA: optionA,
+          optionB: optionB,
+          optionC: optionC,
+          optionD: optionD,
+          answer: selectedAnswer || null,
+          correctAnswer: correctAnswer,
+          isCorrect: isCorrect,
+        });
+      });
+      const totalScore = (correctCount / Number(totalQuestions)) * 100;
+      const durationMinutes = $("#durationFinal").val();
+      const durationTaken =
+        Math.floor(Number(durationMinutes) / 60) +
+        " Mins : " +
+        (Number(durationMinutes) % 60) +
+        " Sec";
+      const data = {
+        quizId: $("#quizId").val(),
+        answers: answers,
+        totalScore: totalScore,
+        durationTaken: durationTaken,
+      };
+
+      $.ajax({
+        url: "/user/answerQuiz",
+        type: "POST",
+        data: data, // Send serialized data
+        success: function (result) {
+          if (result.status) {
+            location.href = "/user/quizList";
+          } else {
+            alert("Somethings was wrong");
+          }
+        },
+        error: function (error) {
+          console.error("Error:", error);
+        },
+      });
+
+      console.log(
+        "Answers:",
+        answers,
+        totalScore,
+        $("#quizId").val(),
+        durationMinutes
+      );
+    }
+  </script>
+</html>

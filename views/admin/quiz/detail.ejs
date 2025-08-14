@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html data-theme="retro">
+  <head>
+    <title>Buddhism Dhamma Guide Admin</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="drawer lg:drawer-open">
+        <input id="left-sidebar-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+          <div class="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+            <div class="flex-1">
+              <label
+                for="left-sidebar-drawer"
+                class="btn btn-primary drawer-button lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="h-5 inline-block w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  ></path>
+                </svg>
+              </label>
+              <h1 class="text-2xl font-semibold ml-2"></h1>
+            </div>
+          </div>
+          <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
+            <div
+              class="max-w-full mx-auto bg-base-100 shadow-xl rounded-xl p-6 space-y-6"
+            >
+              <!-- Blog Title -->
+              <h1 class="text-2xl font-bold text-primary"><%= quiz.title %></h1>
+              <div class="divider"></div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="text-lg text-center">
+                  Level : <%= quiz.level == "level1" ? "Level 1" : quiz.level ==
+                  "level2" ? "Level 2": "Level 3" %>
+                </div>
+                <div class="text-lg text-center">
+                  Duration : <%= quiz.durationMinutes %> Min
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div class="text-lg"><%= quiz.description %></div>
+
+              <div class="mt-2 w-full">
+                <div class="text-lg my-3">Question</div>
+                <div class="join join-vertical w-full bg-base-100">
+                  <% for(var i = 0; i < quiz.questions.length;i++){%>
+                  <div
+                    class="collapse collapse-arrow join-item border-base-300 border my-2"
+                  >
+                    <input type="radio" name="my-accordion-4" />
+                    <div class="collapse-title font-semibold">
+                      <%= quiz.questions[i].question %>
+                    </div>
+                    <div class="collapse-content text-sm">
+                      <div class="card card-xs shadow-md p-3">
+                        <div class="card-title">Correct Answer</div>
+                        <div class="card-body font-bold text-green-500">
+                          <%= quiz.questions[i].correctAnswer %>
+                        </div>
+                      </div>
+                      <div class="grid grid-cols-1 lg:grid-cols-4 gap-3 mt-3">
+                        <div class="card card-xs shadow-md p-3">
+                          <div class="card-title">Option A</div>
+                          <div class="card-body font-bold text-blue-500">
+                            <%= quiz.questions[i].optionA %>
+                          </div>
+                        </div>
+                        <div class="card card-xs shadow-md p-3">
+                          <div class="card-title">Option B</div>
+                          <div class="card-body font-bold text-blue-500">
+                            <%= quiz.questions[i].optionB %>
+                          </div>
+                        </div>
+                        <div class="card card-xs shadow-md p-3">
+                          <div class="card-title">Option C</div>
+                          <div class="card-body font-bold text-blue-500">
+                            <%= quiz.questions[i].optionC %>
+                          </div>
+                        </div>
+                        <div class="card card-xs shadow-md p-3">
+                          <div class="card-title">Option D</div>
+                          <div class="card-body font-bold text-blue-500">
+                            <%= quiz.questions[i].optionD %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <%}%>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div class="card-actions justify-end">
+                <button class="btn btn-error" onclick="deleteQuiz()">
+                  Delete
+                </button>
+                <a
+                  class="btn btn-info"
+                  href="/admin/quiz/update/<%= quiz._id %>"
+                  >Update</a
+                >
+              </div>
+            </div>
+            <div class="h-16"></div>
+          </main>
+        </div>
+        <% include ../../partial/adminDrawer %>
+      </div>
+    </div>
+  </body>
+  <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    function deleteQuiz() {
+      if (!confirm("Are you sure you want to delete this?")) {
+        return;
+      }
+      $.ajax({
+        url: "/admin/quiz/delete",
+        type: "POST",
+        data: {
+          quizId: "<%= quiz._id %>",
+        },
+        success: function (response) {
+          if (response.status === "success") {
+            location.href = "/admin/quiz";
+          } else {
+            alert("Error deleting tip");
+          }
+        },
+        error: function () {
+          alert("Error connecting to the server.");
+        },
+      });
+    }
+  </script>
+</html>

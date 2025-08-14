@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var User = require("../models/User");
 var Guide = require("../models/Guide");
+var TakeQuiz = require("../models/TakenQuiz");
+var Quiz = require("../models/Quiz");
 var ResolutionTable = require("../models/ResolutionTable");
 const { google } = require("googleapis");
 var moment = require("moment-timezone");
@@ -149,6 +151,62 @@ router.post("/joinResolution", async function (req, res) {
       status: false,
       message: "Somethings was wrong",
     });
+  }
+});
+
+router.get("/quizList", async function (req, res) {
+  try {
+    const myQuizHistory = await TakeQuiz.find({ user: req.user._id })
+      .populate("quiz")
+      .sort({ created: -1 });
+    const takenQuizIds = myQuizHistory.map((q) => q.quiz._id);
+    const quizzes = await Quiz.find({
+      isDeleted: false,
+      _id: { $nin: takenQuizIds },
+    }).sort({ created: -1 });
+    res.render("user/quizList", {
+      myQuizHistory: myQuizHistory,
+      quizzes: quizzes,
+    });
+  } catch (e) {
+    console.log(e);
+    res.redirect("/user");
+  }
+});
+
+router.get("/quizDetail/:id", async function (req, res) {
+  try {
+    const takenQuiz = await TakeQuiz.findById(req.params.id).populate("quiz");
+    res.render("user/quizDetail", { takenQuiz: takenQuiz });
+  } catch (e) {
+    console.log(e);
+    res.redirect("/user");
+  }
+});
+
+router.get("/takeQuiz/:id", async function (req, res) {
+  try {
+    const quizDetail = await Quiz.findById(req.params.id);
+    res.render("user/takeQuiz", { quizDetail: quizDetail });
+  } catch (e) {
+    console.log(e);
+    res.redirect("/user");
+  }
+});
+
+router.post("/answerQuiz", async function (req, res) {
+  try {
+    const takenQuiz = new TakeQuiz();
+    takenQuiz.user = req.user.id;
+    takenQuiz.quiz = req.body.quizId;
+    takenQuiz.answers = req.body.answers ? req.body.answers : [];
+    takenQuiz.totalScore = req.body.totalScore;
+    takenQuiz.durationTaken = req.body.durationTaken;
+    await takenQuiz.save();
+    res.json({ status: true });
+  } catch (e) {
+    console.log(e);
+    res.json({ status: false });
   }
 });
 

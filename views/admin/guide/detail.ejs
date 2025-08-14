@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="BDG">
+<html data-theme="retro">
   <head>
     <title>Buddhism Dhamma Guide Admin</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
@@ -45,9 +45,6 @@
                 <%= guide.title %>
               </h1>
               <div class="divider"></div>
-              <div class="text-lg text-center font-semibold">
-                <%= guide.summary %>
-              </div>
 
               <iframe
                 width="560"
@@ -59,7 +56,9 @@
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
-
+              <div class="text-lg text-center font-semibold">
+                <%= guide.summary %>
+              </div>
               <div class="divider"></div>
               <div class="card-actions justify-end">
                 <% if(guide.isFeatured){%>

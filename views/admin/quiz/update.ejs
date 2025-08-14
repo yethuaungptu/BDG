@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html data-theme="retro">
+  <head>
+    <title>Buddhism Dhamma Guide Admin</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="drawer lg:drawer-open">
+        <input id="left-sidebar-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+          <div class="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+            <div class="flex-1">
+              <label
+                for="left-sidebar-drawer"
+                class="btn btn-primary drawer-button lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="h-5 inline-block w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  ></path>
+                </svg>
+              </label>
+              <h1 class="text-2xl font-semibold ml-2"></h1>
+            </div>
+          </div>
+          <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
+            <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+              <div class="text-xl font-semibold">
+                <%= __('nav.quiz') %> <%= __('update') %>
+              </div>
+              <div class="divider mt-2"></div>
+              <div class="h-full w-full bg-base-100">
+                <form
+                  class="p-6 rounded-xl shadow space-y-6"
+                  action="/admin/quiz/update"
+                  method="post"
+                >
+                <input type="hidden" name="id" value="<%= quiz._id %>">
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="form-control w-full undefined -mb-7">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Title
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        name="title"
+                        placeholder="Quiz Title"
+                        class="input input-bordered w-full validator"
+                        required
+                        value="<%= quiz.title %>"
+                        minlength="3"
+                        title="Only letters, numbers or dash"
+                      />
+                      <p class="validator-hint">
+                        Must be at least 3 characters
+                      </p>
+                    </div>
+                    <div class="form-control w-full undefined -mb-7">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Category
+                        </span>
+                      </label>
+                      <select
+                        class="select validator w-full"
+                        name="category"
+                        required
+                      >
+                        <option value="level1" <%= quiz.category =="level1" ? "selected":"" %> >Level 1</option>
+                        <option value="level2" <%= quiz.category =="level2" ? "selected":"" %>>Level 2</option>
+                        <option value="level3" <%= quiz.category =="level3" ? "selected":"" %>>Level 3</option>
+                      </select>
+                      <p class="validator-hint">Please select category</p>
+                    </div>
+                    <div class="form-control w-full undefined -mb-7">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Duration Minutes
+                        </span>
+                      </label>
+                      <input
+                        type="number"
+                        name="durationMinutes"
+                        placeholder="Duration Minutes"
+                        class="input input-bordered w-full validator"
+                        required
+                        min="1"
+                        value="<%= quiz.durationMinutes %>"
+                        title="Only numbers"
+                      />
+                      <p class="validator-hint">Must be at 1</p>
+                    </div>
+                    <div
+                      class="form-control w-full undefined -mb-3 col-span-full"
+                    >
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Description
+                        </span>
+                      </label>
+                      <textarea
+                        name="description"
+                        class="textarea textarea-bordered w-full validator"
+                        required
+                        minlength="15"
+                      ><%= quiz.description %></textarea>
+                      <p class="validator-hint">
+                        Must be at least 15 characters
+                      </p>
+                    </div>
+                  </div>
+                  <div class="divider"></div>
+                  <div class="mb-2 gap-2">
+                    <div class="w-full undefined">
+                      <label class="label">
+                        <span class="label-text text-base-content undefined">
+                          Question
+                        </span>
+                      </label>
+                      <div
+                        id="questions-container"
+                        class="space-y-4 grid grid-cols-1"
+                      ></div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary mt-2"
+                        onclick="addQuestion()"
+                      >
+                        Add Question
+                      </button>
+                    </div>
+                  </div>
+                  <div class="mt-16">
+                    <button type="submit" class="btn btn-primary float-right">
+                      Update
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="h-16"></div>
+          </main>
+        </div>
+        <% include ../../partial/adminDrawer %>
+      </div>
+    </div>
+  </body>
+  <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    let questionCount = 0;
+    $(function () {
+      // Initialize steps and habits if they exist
+      const questions = <%- JSON.stringify(quiz.questions || []) %>;
+      questions.forEach((question, index) => {
+        addQuestion();
+        const questionDiv = document.querySelector(`[data-question-id="${index}"]`);
+        questionDiv.querySelector('input[name^="questions"]').value = question.question;
+        questionDiv.querySelector('input[name$="[correctAnswer]"]').value =
+          question.correctAnswer;
+        questionDiv.querySelector('input[name$="[optionA]"]').value =
+          question.optionA;
+        questionDiv.querySelector('input[name$="[optionB]"]').value =
+          question.optionB;
+        questionDiv.querySelector('input[name$="[optionC]"]').value =
+          question.optionC;
+        questionDiv.querySelector('input[name$="[optionD]"]').value =
+          question.optionD;
+      });
+    });
+    function addQuestion() {
+      const container = document.getElementById("questions-container");
+
+      const questionDiv = document.createElement("div");
+      questionDiv.className = "border p-1 lg:p-4 rounded bg-base-200 relative";
+      questionDiv.setAttribute("data-question-id", questionCount);
+
+      questionDiv.innerHTML = `
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div>
+            <label class="label">Question</label>
+            <input type="text" name="questions[${questionCount}][question]" class="input input-bordered w-full mb-2" placeholder="Question" required />
+        </div>
+        <div>
+            <label class="label">Answer</label>
+            <input type="text" name="questions[${questionCount}][correctAnswer]" class="input input-bordered w-full mb-2" placeholder="Correct Answer" required />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-2">
+        <div>
+            <label class="label">Option A</label>
+            <input type="text" name="questions[${questionCount}][optionA]" class="input input-bordered w-full" placeholder="Option A" required />
+        </div>
+        <div>
+            <label class="label">Option B</label>
+            <input type="text" name="questions[${questionCount}][optionB]" class="input input-bordered w-full" placeholder="Option A" required />
+        </div>
+        <div>
+            <label class="label">Option C</label>
+            <input type="text" name="questions[${questionCount}][optionC]" class="input input-bordered w-full" placeholder="Option A" required />
+        </div>
+        <div>
+            <label class="label">Option D</label>
+            <input type="text" name="questions[${questionCount}][optionD]" class="input input-bordered w-full" placeholder="Option A" required />
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-error btn-sm mt-3" onclick="removeQuestion(${questionCount})">Remove Question</button>
+    `;
+      container.appendChild(questionDiv);
+      questionCount++;
+    }
+    function removeQuestion(id) {
+      const questionDiv = document.querySelector(`[data-question-id="${id}"]`);
+      if (questionDiv) {
+        questionDiv.remove();
+      }
+    }
+  </script>
+</html>

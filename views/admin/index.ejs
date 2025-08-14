@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="BDG">
+<html data-theme="retro">
   <head>
     <title>Buddhism Dhamma Guide Admin</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
@@ -37,11 +37,53 @@
             </div>
           </div>
           <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6 bg-base-200">
-            <div class="hero h-4/5 bg-base-200">
-              <div class="hero-content">
-                <div class="max-w-md">
-                  <h1 class="text-2xl mt-8 font-bold">BDG Admin Panel</h1>
-                </div>
+            <div
+              class="stats stats-vertical lg:stats-horizontal shadow w-full mb-6 lg:mb-12"
+            >
+              <div class="stat">
+                <div class="stat-title">Total Users</div>
+                <div class="stat-value"><%= UserCount %></div>
+              </div>
+
+              <div class="stat">
+                <div class="stat-title">Total Taken Quiz</div>
+                <div class="stat-value"><%= TakenQuizCount %></div>
+              </div>
+            </div>
+            <div
+              class="stats stats-vertical lg:stats-horizontal shadow w-full mb-6 lg:mb-12"
+            >
+              <div class="stat">
+                <div class="stat-title">Total Dhamma Guide</div>
+                <div class="stat-value"><%= GSPCount %></div>
+              </div>
+
+              <div class="stat">
+                <div class="stat-title">Total Wisdom Land</div>
+                <div class="stat-value"><%= ABCount %></div>
+              </div>
+
+              <div class="stat">
+                <div class="stat-title">Total Dhamma Video</div>
+                <div class="stat-value"><%= GuideCount %></div>
+              </div>
+            </div>
+            <div
+              class="stats stats-vertical lg:stats-horizontal shadow w-full mb-6 lg:mb-12"
+            >
+              <div class="stat">
+                <div class="stat-title">Total Meditation</div>
+                <div class="stat-value"><%= MeditateCount %></div>
+              </div>
+
+              <div class="stat">
+                <div class="stat-title">Total Resolution</div>
+                <div class="stat-value"><%= RECount %></div>
+              </div>
+
+              <div class="stat">
+                <div class="stat-title">Total Quiz</div>
+                <div class="stat-value"><%= QuizCount %></div>
               </div>
             </div>
             <div class="h-16"></div>

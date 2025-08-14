@@ -20,18 +20,29 @@ router.get("/", async function (req, res, next) {
     isDeleted: false,
     isFeatured: true,
   });
+  const featuredGuide = await Guide.find({
+    isDeleted: false,
+    isFeatured: true,
+  });
   res.render("index", {
     title: "Express",
     __: res.__,
     featuredGsp: featuredGsp,
     featuredMeditate: featuredMeditate,
     featuredResolution: featuredResolution,
+    featuredGuide: featuredGuide,
   });
 });
 
 router.get("/gsp", async function (req, res, next) {
-  const gsps = await GSP.find({ isDeleted: false }).sort({ created: -1 });
-  res.render("gsp", { __: res.__, gsps: gsps });
+  var query = { isDeleted: false };
+  var filterValue = "";
+  if (req.query.category) {
+    filterValue = req.query.category;
+    query = { category: filterValue, isDeleted: false };
+  }
+  const gsps = await GSP.find(query).sort({ created: -1 });
+  res.render("gsp", { __: res.__, gsps: gsps, filterValue: filterValue });
 });
 
 router.get("/gsp/detail/:id", async function (req, res, next) {

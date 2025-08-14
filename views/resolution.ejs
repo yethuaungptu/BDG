@@ -3,6 +3,8 @@
   <head>
     <title>Buddhism Dhamma Guide</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/swiper-bundle.min.css" />
+    <script src="/javascripts/swiper-bundle.min.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
@@ -10,6 +12,35 @@
     <% include ./partial/navbar.ejs %>
 
     <div class="h-screen">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide">
+            <div class="w-full h-[15vh] lg:h-[40vh]">
+              <img src="/images/resolution-1.jpg" class="w-full object-cover" />
+              <div
+                class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
+              >
+                <h2 class="text-3xl lg:text-5xl font-bold drop-shadow-md">
+                  <%= __('nav.resolution') %>
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="w-full h-[15vh] lg:h-[40vh]">
+              <img src="/images/resolution-2.jpg" class="w-full object-cover" />
+              <div
+                class="absolute top-1/2 left-5 lg:left-16 -translate-y-1/2 text-white space-y-4"
+              >
+                <h2 class="text-3xl lg:text-5xl font-bold drop-shadow-md">
+                  <%= __('nav.resolution') %>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="text-2xl my-3 text-center"><%= __('nav.resolution') %></div>
       <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 m-1 lg:m-3"
@@ -38,4 +69,17 @@
     </div>
     <% include ./partial/footer.ejs %>
   </body>
+  <script>
+    const swiper = new Swiper(".swiper", {
+      // Optional parameters
+      direction: "horizontal",
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+      },
+      autoplay: {
+        delay: 5000,
+      },
+    });
+  </script>
 </html>

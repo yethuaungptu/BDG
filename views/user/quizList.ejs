@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html data-theme="BDG">
+  <head>
+    <title>Buddhism Dhamma Guide</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/aos.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <% include ../partial/navbar.ejs %>
+
+    <div class="aos-all py-auto min-h-screen">
+      <div class="text-center text-2xl my-3">Quiz List</div>
+      <div class="max-w-4xl mx-auto p-6 card bg-base-100 shadow-sm my-5">
+        <div class="tabs tabs-lift">
+          <input
+            type="radio"
+            name="my_tabs_3"
+            class="tab"
+            aria-label="My Taken Quiz"
+            checked="checked"
+          />
+          <div
+            class="tab-content bg-base-100 border-base-300 p-6 overflow-y-auto max-h-96"
+          >
+            <div class="overflow-x-auto">
+              <table class="table table-zebra">
+                <!-- head -->
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Score</th>
+                    <th>Taken Duration</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i = 0; i < myQuizHistory.length;i++){%>
+                  <tr>
+                    <th><%= i+1 %></th>
+                    <td><%= myQuizHistory[i].quiz.title %></td>
+                    <td><%= myQuizHistory[i].totalScore %></td>
+                    <td><%= myQuizHistory[i].durationTaken %> Min</td>
+                    <td>
+                      <a
+                        href="/user/quizDetail/<%= myQuizHistory[i]._id %>"
+                        class="btn btn-sm btn-primary"
+                        >Detail</a
+                      >
+                    </td>
+                  </tr>
+                  <%}%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <input
+            type="radio"
+            name="my_tabs_3"
+            class="tab"
+            aria-label="All Quiz"
+          />
+          <div
+            class="tab-content bg-base-100 border-base-300 p-6 overflow-y-auto max-h-96"
+          >
+            <div class="overflow-x-auto">
+              <table class="table table-zebra">
+                <!-- head -->
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Question</th>
+                    <th>Duration</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i = 0; i < quizzes.length;i++){%>
+                  <tr>
+                    <th><%= i+1 %></th>
+                    <td><%= quizzes[i].title %></td>
+                    <td><%= quizzes[i].questions.length %></td>
+                    <td><%= quizzes[i].durationMinutes %> Min</td>
+                    <td>
+                      <a
+                        href="/user/takeQuiz/<%= quizzes[i]._id %>"
+                        class="btn btn-sm btn-primary"
+                        >Take Quiz</a
+                      >
+                    </td>
+                  </tr>
+                  <%}%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% include ../partial/footer.ejs %>
+  </body>
+</html>
