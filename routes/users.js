@@ -225,7 +225,7 @@ async function addEventToGoogleCalendar(user, resolution) {
 
   const startDateTime = new Date(Date.now());
   const endDateTime = new Date(startDateTime);
-  endDateTime.setDate(startDateTime.getDate() + resolution.durationDays);
+  endDateTime.setDate(startDateTime.getDate() + resolution.durationDays - 1);
   await calendar.events.insert({
     calendarId: "primary",
     requestBody: {
