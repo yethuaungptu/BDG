@@ -46,17 +46,15 @@
               src="<%= meditate.mediaUrl %>"
               title="YouTube video player"
               frameborder="0"
+              id="ytplayer"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen
             ></iframe>
           </figure>
           <%}else{%>
-          <audio controls autoplay>
-            <source
-              src="http://dhammadownload.com/MP3Library/Dr-Nandamalabhivamsa/2013-MahaThaTiPaHtan/Dr-Nandamalabhivasa-2013-09-21-Am-Opening-%E1%80%99%E1%80%87%E1%80%B9%E1%80%85%E1%80%BB%E1%80%AD%E1%80%99%E1%80%94%E1%80%AD%E1%80%80%E1%80%AC%E1%80%9A%E1%80%B1-%E1%80%99%E1%80%9F%E1%80%AC%E1%80%9E%E1%80%90%E1%80%AD%E1%80%95%E1%80%8B%E1%80%B9%E1%80%8C%E1%80%AC%E1%80%94%E1%80%9E%E1%80%AF%E1%80%90%E1%80%B9%E1%80%90%E1%80%B6-%E1%81%81.mp3"
-              type="audio/mp3"
-            />
+          <audio id="mediaMP3" controls>
+            <source src="<%= meditate.mediaUrl %>" type="audio/mp3" />
             Your browser does not support the audio element.
           </audio>
           <%}%>
@@ -74,7 +72,38 @@
                 <%= meditate.description %>
               </div>
             </div>
-
+            <audio id="endSound" controls class="hidden">
+              <source src="/sound/end.mp3" type="audio/mp3" />
+              Your browser does not support the audio element.
+            </audio>
+            <% if(locals.user){%>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="card card-sm shadow-md p-3">
+                <div class="card-title text-center">Time Left</div>
+                <div class="card-body">
+                  <div class="text-center text-xl font-bold">
+                    <span id="timer">00:00</span>
+                  </div>
+                  <input
+                    type="hidden"
+                    id="duration"
+                    value="<%= (meditate.minutes * 60)+meditate.seconds %>"
+                  />
+                </div>
+              </div>
+              <div class="flex flex-1 px-4">
+                <button class="btn btn-primary my-auto w-full" id="btnStart">
+                  Start
+                </button>
+              </div>
+            </div>
+            <%}else{%>
+            <div class="my-3 flex flex-1 mx-auto">
+              <a class="btn btn-secondary" href="/auth/login">
+                Login to take timer
+              </a>
+            </div>
+            <%}%>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
               <div>
                 <% if (meditate.steps.length > 0) { %>
@@ -131,4 +160,49 @@
   </body>
   <script src="/javascripts/aos.js"></script>
   <script src="/javascripts/jquery-3.7.1.min.js"></script>
+  <script>
+    $("#btnStart").click(function () {
+      $(this).addClass("btn-disabled");
+      let duration = $("#duration").val();
+      const timerEl = document.getElementById("timer");
+      const interval = setInterval(() => {
+        const min = Math.floor(duration / 60);
+        const sec = duration % 60;
+        timerEl.textContent = `${String(min).padStart(2, "0")}:${String(
+          sec
+        ).padStart(2, "0")}`;
+        if (--duration < 0) {
+          clearInterval(interval);
+          closePlayer();
+        }
+      }, 1000);
+
+      const mediaType = "<%= meditate.mediaType %>";
+      if (mediaType == "MP3") {
+        const mp3Player = document.getElementById("mediaMP3");
+        mp3Player.play();
+      } else {
+        // let player;
+        // function onYouTubeIframeAPIReady() {
+        //   player = new YT.Player("ytplayer");
+        // }
+        // player.playVideo();
+      }
+      function closePlayer() {
+        if (mediaType == "MP3") {
+          const mp3Player = document.getElementById("mediaMP3");
+          mp3Player.pause();
+        } else {
+          // let player;
+          // function onYouTubeIframeAPIReady() {
+          //   player = new YT.Player("ytplayer");
+          // }
+          // player.playVideo();
+        }
+        const endSound = document.getElementById("endSound");
+        endSound.play();
+        $("#btnStart").removeClass("btn-disabled");
+      }
+    });
+  </script>
 </html>
