@@ -18,8 +18,28 @@
       "pray": "Pray"
     }
   },
+  "slider1": {
+    "title": "Meditation",
+    "description": "Quick meditation tips",
+    "button": "Explore Meditation"
+  },
+  "slider2": {
+    "title": "Resolution",
+    "description": "Find resolution for your way",
+    "button": "Explore Resolution"
+  },
+  "slider3": {
+    "title": "Dhamma",
+    "description": "Learn Dhamma Guide",
+    "button": "Explore Dhamma Guide"
+  },
+  "title": "Buddhism Dhamma Guide",
   "create": "Create",
   "list": "List",
   "update": "Update",
-  "featured": "Featured"
+  "featured": "Featured",
+  "diploma": "Suta Dhamma Diploma",
+  "1": "Level-1",
+  "2": "Level-2",
+  "3": "Level-3"
 }
