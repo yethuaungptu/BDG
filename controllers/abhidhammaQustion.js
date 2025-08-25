@@ -57,7 +57,7 @@ router.post("/update", upload.single("pdfFile"), async function (req, res) {
     const abhidhammaData = await AbhidhammaQuestion.findById(req.body.id);
     const update = {
       title: req.body.title,
-      year: req.body.year,
+      category: req.body.category,
       description: req.body.description,
       updated: moment.utc(Date.now()).tz("Asia/Yangon").format(),
     };
