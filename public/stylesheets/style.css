@@ -3470,6 +3470,9 @@
   .bg-base-200 {
     background-color: var(--color-base-200);
   }
+  .bg-base-300 {
+    background-color: var(--color-base-300);
+  }
   .bg-blue-200 {
     background-color: var(--color-blue-200);
   }
