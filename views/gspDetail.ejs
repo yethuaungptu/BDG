@@ -59,8 +59,8 @@
   <script src="/javascripts/jquery-3.7.1.min.js"></script>
   <script>
     $(function () {
-      const mmVal = "<div><%- gsp.mmContent %></div>";
-      const enVal = "<div><%- gsp.enContent %></div>";
+      const mmVal = `<div><%- gsp.mmContent %></div>`;
+      const enVal = `<div><%- gsp.enContent %></div>`;
       $("#mmContent").html(mmVal);
       $("#enContent").html(enVal);
     });
