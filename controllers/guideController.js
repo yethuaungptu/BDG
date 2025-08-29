@@ -4,10 +4,24 @@ var Guide = require("../models/Guide");
 var moment = require("moment-timezone");
 
 router.get("/", async function (req, res) {
-  const guides = await Guide.find({ isDeleted: false }).sort({ created: -1 });
+  var keyword = "";
+  var filterValue = "";
+  let query = { isDeleted: false };
+
+  if (req.query.keyword) {
+    keyword = req.query.keyword;
+    query.title = { $regex: req.query.keyword, $options: "i" };
+  }
+  if (req.query.search) {
+    filterValue = req.query.search;
+    query = { category: filterValue, isDeleted: false };
+  }
+  const guides = await Guide.find(query).sort({ created: -1 });
   res.render("admin/guide/index", {
     __: res.__,
     guides: guides,
+    filterValue: filterValue,
+    keyword: keyword,
   });
 });
 
@@ -21,6 +35,7 @@ router.post("/create", async function (req, res) {
     guide.title = req.body.title;
     guide.summary = req.body.summary;
     guide.mediaUrl = req.body.mediaUrl;
+    guide.category = req.body.category;
     await guide.save();
     res.redirect("/admin/guide");
   } catch (e) {
@@ -69,6 +84,7 @@ router.post("/update", async function (req, res) {
       title: req.body.title,
       summary: req.body.summary,
       mediaUrl: req.body.mediaUrl,
+      category: req.body.category,
       updated: moment.utc(Date.now()).tz("Asia/Yangon").format(),
     };
     await Guide.findByIdAndUpdate(req.body.id, { $set: update });

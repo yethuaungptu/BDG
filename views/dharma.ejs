@@ -43,6 +43,133 @@
         </div>
       </div>
       <div class="text-lg text-center"><%= __('nav.dhamma') %></div>
+      <div class="flex justify-end p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="ml-auto">
+            <div class="inline-block mr-4">
+              <div><%= filterValue %></div>
+            </div>
+            <div class="dropdown dropdown-bottom dropdown-end">
+              <label tabindex="0" class="btn btn-outline"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  class="w-5 mr-2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
+                  ></path>
+                </svg>
+                Filter by Category
+              </label>
+              <ul
+                tabindex="0"
+                class="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a
+                    href="/dhamma?search=ပါမောက္ခချုပ်ဆရာတော်ကြီး ဘဒ္ဒန္တ ဒေါက်တာ နန္ဒမာလာဘိဝံသ"
+                    >ပါမောက္ခချုပ်ဆရာတော်ကြီး ဘဒ္ဒန္တ ဒေါက်တာ နန္ဒမာလာဘိဝံသ</a
+                  >
+                </li>
+                <li>
+                  <a href="/dhamma?search=သစ္စာရွှေစည်ဆရာတော်"
+                    >သစ္စာရွှေစည်ဆရာတော်</a
+                  >
+                </li>
+                <li>
+                  <a href="/dhamma?search=ကိုရီးယားဆရာတော်">ကိုရီးယားဆရာတော်</a>
+                </li>
+                <li>
+                  <a href="/dhamma?search=ရွှေမြိုင်ဆရာတော်"
+                    >ရွှေမြိုင်ဆရာတော်</a
+                  >
+                </li>
+                <li>
+                  <a href="/dhamma?search=မော်ကျွန်းဆရာတော်"
+                    >မော်ကျွန်းဆရာတော်</a
+                  >
+                </li>
+                <li>
+                  <a href="/dhamma?search=ဗန်းမော်ဆရာတော်">ဗန်းမော်ဆရာတော်</a>
+                </li>
+                <li>
+                  <a href="/dhamma?search=အောက်စဖို့ဒ် ဆရာတော်"
+                    >အောက်စဖို့ဒ် ဆရာတော်</a
+                  >
+                </li>
+                <li>
+                  <a href="/dhamma?search=သီတဂူဆရာတော်ဘုရားကြီး ဦးဉာဏိဿရ"
+                    >သီတဂူဆရာတော်ဘုရားကြီး ဦးဉာဏိဿရ</a
+                  >
+                </li>
+                <li>
+                  <a href="/dhamma?search=ကျိုက္ကလော့ ဆရာတော်"
+                    >ကျိုက္ကလော့ ဆရာတော်</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="/dhamma?search=ဥုးသုမင်္ဂလ (မင်္ဂလတိုက်သစ် - ဒယ်အိုးဆရာတော်)"
+                    >ဥုးသုမင်္ဂလ (မင်္ဂလတိုက်သစ် - ဒယ်အိုးဆရာတော်)</a
+                  >
+                </li>
+                <li>
+                  <a href="/dhamma?search=ကြာနီကန်ဆရာတော်">ကြာနီကန်ဆရာတော်</a>
+                </li>
+                <li>
+                  <a href="/dhamma?search=မင်းကွန်းဆရာတော်">မင်းကွန်းဆရာတော်</a>
+                </li>
+                <li>
+                  <a
+                    href="/dhamma?search=ချမ်းမြေ့ရိပ်မြိုင်ဆရာတော် အရှင်တေဇောသာရ (ပဲခူး)"
+                    >ချမ်းမြေ့ရိပ်မြိုင်ဆရာတော် အရှင်တေဇောသာရ (ပဲခူး)</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <form action="/dhamma" class="ml-auto" method="get">
+            <div class="join">
+              <div>
+                <label class="input validator join-item">
+                  <svg
+                    class="h-[1em] opacity-50"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <g
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                      stroke-width="2.5"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                  </svg>
+                  <input
+                    type="search"
+                    name="keyword"
+                    value="<%= keyword %>"
+                    placeholder="Search"
+                  />
+                </label>
+              </div>
+              <button type="submit" class="btn btn-neutral join-item">
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
       <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
         <% for(var i = 0; i < guides.length; i++){%>
         <div class="card w-full bg-base-100 card-sm shadow-sm">

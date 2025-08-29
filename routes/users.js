@@ -176,8 +176,17 @@ router.get("/quizList", async function (req, res) {
 
 router.get("/quizDetail/:id", async function (req, res) {
   try {
+    let correctAnswers = 0;
     const takenQuiz = await TakeQuiz.findById(req.params.id).populate("quiz");
-    res.render("user/quizDetail", { takenQuiz: takenQuiz });
+    takenQuiz.answers.forEach((answer) => {
+      if (answer.isCorrect) {
+        correctAnswers++;
+      }
+    });
+    res.render("user/quizDetail", {
+      takenQuiz: takenQuiz,
+      correctAnswers: correctAnswers,
+    });
   } catch (e) {
     console.log(e);
     res.redirect("/user");

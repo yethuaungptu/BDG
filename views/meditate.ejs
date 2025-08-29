@@ -43,6 +43,41 @@
         </div>
       </div>
       <div class="text-lg text-center"><%= __('nav.meditate') %></div>
+      <div class="flex justify-end p-4">
+        <form action="/meditate" class="ml-auto" method="get">
+          <div class="join">
+            <div>
+              <label class="input validator join-item">
+                <svg
+                  class="h-[1em] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                  </g>
+                </svg>
+                <input
+                  type="search"
+                  name="keyword"
+                  value="<%= keyword %>"
+                  placeholder="Search"
+                />
+              </label>
+            </div>
+            <button type="submit" class="btn btn-neutral join-item">
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
       <div class="grid grid-cols-1 lg:grid-cols-3 p-2 gap-2">
         <% for(var i = 0; i < meditates.length; i++){%>
         <div class="card w-full bg-base-100 card-sm shadow-sm">

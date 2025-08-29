@@ -35,14 +35,27 @@ router.get("/", async function (req, res, next) {
 });
 
 router.get("/gsp", async function (req, res, next) {
-  var query = { isDeleted: false };
   var filterValue = "";
+  var keyword = "";
+  let query = { isDeleted: false };
+
   if (req.query.category) {
     filterValue = req.query.category;
-    query = { category: filterValue, isDeleted: false };
+    query.category = req.query.category;
   }
+
+  if (req.query.keyword) {
+    keyword = req.query.keyword;
+    query.titleMM = { $regex: req.query.keyword, $options: "i" };
+  }
+
   const gsps = await GSP.find(query).sort({ created: -1 });
-  res.render("gsp", { __: res.__, gsps: gsps, filterValue: filterValue });
+  res.render("gsp", {
+    __: res.__,
+    gsps: gsps,
+    filterValue: filterValue,
+    keyword: keyword,
+  });
 });
 
 router.get("/gsp/detail/:id", async function (req, res, next) {
@@ -55,10 +68,21 @@ router.get("/gsp/detail/:id", async function (req, res, next) {
 });
 
 router.get("/meditate", async function (req, res, next) {
-  const meditates = await Meditate.find({ isDeleted: false }).sort({
+  var keyword = "";
+  let query = { isDeleted: false };
+
+  if (req.query.keyword) {
+    keyword = req.query.keyword;
+    query.title = { $regex: req.query.keyword, $options: "i" };
+  }
+  const meditates = await Meditate.find(query).sort({
     created: -1,
   });
-  res.render("meditate", { __: res.__, meditates: meditates });
+  res.render("meditate", {
+    __: res.__,
+    meditates: meditates,
+    keyword: keyword,
+  });
 });
 
 router.get("/meditate/detail/:id", async function (req, res, next) {
@@ -71,8 +95,19 @@ router.get("/meditate/detail/:id", async function (req, res, next) {
 });
 
 router.get("/resolution", async function (req, res, next) {
-  const resolutions = await ResolutionTable.find({ isDeleted: false });
-  res.render("resolution", { __: res.__, resolutions: resolutions });
+  var keyword = "";
+  let query = { isDeleted: false };
+
+  if (req.query.keyword) {
+    keyword = req.query.keyword;
+    query.titleMM = { $regex: req.query.keyword, $options: "i" };
+  }
+  const resolutions = await ResolutionTable.find(query);
+  res.render("resolution", {
+    __: res.__,
+    resolutions: resolutions,
+    keyword: keyword,
+  });
 });
 
 router.get("/resolution/:id", async function (req, res, next) {
@@ -81,8 +116,25 @@ router.get("/resolution/:id", async function (req, res, next) {
 });
 
 router.get("/dhamma", async function (req, res, next) {
-  const guides = await Guide.find({ isDeleted: false }).sort({ created: -1 });
-  res.render("dharma", { __: res.__, guides: guides });
+  var keyword = "";
+  var filterValue = "";
+  let query = { isDeleted: false };
+
+  if (req.query.keyword) {
+    keyword = req.query.keyword;
+    query.title = { $regex: req.query.keyword, $options: "i" };
+  }
+  if (req.query.search) {
+    filterValue = req.query.search;
+    query = { category: filterValue, isDeleted: false };
+  }
+  const guides = await Guide.find(query).sort({ created: -1 });
+  res.render("dharma", {
+    __: res.__,
+    guides: guides,
+    keyword: keyword,
+    filterValue: filterValue,
+  });
 });
 
 router.get("/dhamma/detail/:id", async function (req, res, next) {

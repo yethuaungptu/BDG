@@ -16,8 +16,14 @@
         <div class="card bg-base-100 shadow-xl mb-6">
         <div class="card-body">
           <div
-            class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4"
+            class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4"
           >
+          <div class="stat bg-base-200 rounded-lg">
+              <div class="stat-title">Result</div>
+              <div class="stat-value text-green-500">
+               <%= correctAnswers %> / <%= takenQuiz.answers.length %> 
+              </div>
+            </div>
             <div class="stat bg-base-200 rounded-lg">
               <div class="stat-title">Score</div>
               <div class="stat-value text-primary">

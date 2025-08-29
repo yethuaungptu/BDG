@@ -2744,6 +2744,9 @@
   .ml-6 {
     margin-left: calc(var(--spacing) * 6);
   }
+  .ml-auto {
+    margin-left: auto;
+  }
   .status {
     display: inline-block;
     aspect-ratio: 1 / 1;
@@ -3132,6 +3135,9 @@
   .h-64 {
     height: calc(var(--spacing) * 64);
   }
+  .h-\[1em\] {
+    height: 1em;
+  }
   .h-\[15vh\] {
     height: 15vh;
   }
@@ -3326,6 +3332,9 @@
   .gap-4 {
     gap: calc(var(--spacing) * 4);
   }
+  .gap-5 {
+    gap: calc(var(--spacing) * 5);
+  }
   .gap-6 {
     gap: calc(var(--spacing) * 6);
   }
@@ -3484,9 +3493,6 @@
   }
   .bg-green-300 {
     background-color: var(--color-green-300);
-  }
-  .bg-info {
-    background-color: var(--color-info);
   }
   .bg-primary {
     background-color: var(--color-primary);
@@ -3706,6 +3712,9 @@
   .opacity-30 {
     opacity: 30%;
   }
+  .opacity-50 {
+    opacity: 50%;
+  }
   .opacity-60 {
     opacity: 60%;
   }
@@ -3825,6 +3834,10 @@
   .btn-info {
     --btn-color: var(--color-info);
     --btn-fg: var(--color-info-content);
+  }
+  .btn-neutral {
+    --btn-color: var(--color-neutral);
+    --btn-fg: var(--color-neutral-content);
   }
   .btn-primary {
     --btn-color: var(--color-primary);
