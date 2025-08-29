@@ -19,15 +19,15 @@
             class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4"
           >
           <div class="stat bg-base-200 rounded-lg">
-              <div class="stat-title">Result</div>
+              <div class="stat-title">Correct Answer</div>
               <div class="stat-value text-green-500">
-               <%= correctAnswers %> / <%= takenQuiz.answers.length %> 
+               <%= correctAnswers %> 
               </div>
             </div>
             <div class="stat bg-base-200 rounded-lg">
-              <div class="stat-title">Score</div>
+              <div class="stat-title">Total Question</div>
               <div class="stat-value text-primary">
-                <%= takenQuiz.totalScore %> 
+                <%= takenQuiz.answers.length %> 
               </div>
             </div>
             <div class="stat bg-base-200 rounded-lg">
