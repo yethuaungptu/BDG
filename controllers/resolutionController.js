@@ -8,7 +8,9 @@ var ResolutionTable = require("../models/ResolutionTable");
 const upload = multer({ dest: "public/images/uploads" });
 
 router.get("/", async function (req, res) {
-  const resolutions = await ResolutionTable.find({ isDeleted: false });
+  const resolutions = await ResolutionTable.find({ isDeleted: false }).sort({
+    created: -1,
+  });
   res.render("admin/resolution", { resolutions: resolutions });
 });
 

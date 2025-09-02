@@ -3542,6 +3542,9 @@
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
+  .p-10 {
+    padding: calc(var(--spacing) * 10);
+  }
   .table-sm {
     :not(thead, tfoot) tr {
       font-size: 0.75rem;

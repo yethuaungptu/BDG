@@ -67,35 +67,122 @@
             class="tab-content bg-base-100 border-base-300 p-6 overflow-y-auto max-h-96"
           >
             <div class="overflow-x-auto">
-              <table class="table table-zebra">
-                <!-- head -->
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Title</th>
-                    <th>Question</th>
-                    <th>Duration</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% for(var i = 0; i < quizzes.length;i++){%>
-                  <tr>
-                    <th><%= i+1 %></th>
-                    <td><%= quizzes[i].title %></td>
-                    <td><%= quizzes[i].questions.length %></td>
-                    <td><%= quizzes[i].durationMinutes %> Min</td>
-                    <td>
-                      <a
-                        href="/user/takeQuiz/<%= quizzes[i]._id %>"
-                        class="btn btn-sm btn-primary"
-                        >Take Quiz</a
-                      >
-                    </td>
-                  </tr>
-                  <%}%>
-                </tbody>
-              </table>
+              <div class="tabs tabs-border">
+                <input
+                  type="radio"
+                  name="level"
+                  class="tab"
+                  aria-label="Level 1"
+                />
+                <div class="tab-content border-base-300 bg-base-100 p-10">
+                  <table class="table table-zebra">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Question</th>
+                        <th>Duration</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% const lvl1Quiz = quizzes.filter((item)=> item.category
+                      == "level1"); for(var i = 0; i < lvl1Quiz.length;i++){%>
+                      <tr>
+                        <th><%= i+1 %></th>
+                        <td><%= lvl1Quiz[i].title %></td>
+                        <td><%= lvl1Quiz[i].questions.length %></td>
+                        <td><%= lvl1Quiz[i].durationMinutes %> Min</td>
+                        <td>
+                          <a
+                            href="/user/takeQuiz/<%= lvl1Quiz[i]._id %>"
+                            class="btn btn-sm btn-primary"
+                            >Take Quiz</a
+                          >
+                        </td>
+                      </tr>
+                      <%}%>
+                    </tbody>
+                  </table>
+                </div>
+
+                <input
+                  type="radio"
+                  name="level"
+                  class="tab"
+                  aria-label="Level 2"
+                  checked="checked"
+                />
+                <div class="tab-content border-base-300 bg-base-100 p-10">
+                  <table class="table table-zebra">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Question</th>
+                        <th>Duration</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% const lvl2Quiz = quizzes.filter((item)=> item.category
+                      == "level2"); for(var i = 0; i < lvl2Quiz.length;i++){%>
+                      <tr>
+                        <th><%= i+1 %></th>
+                        <td><%= lvl2Quiz[i].title %></td>
+                        <td><%= lvl2Quiz[i].questions.length %></td>
+                        <td><%= lvl2Quiz[i].durationMinutes %> Min</td>
+                        <td>
+                          <a
+                            href="/user/takeQuiz/<%= lvl2Quiz[i]._id %>"
+                            class="btn btn-sm btn-primary"
+                            >Take Quiz</a
+                          >
+                        </td>
+                      </tr>
+                      <%}%>
+                    </tbody>
+                  </table>
+                </div>
+
+                <input
+                  type="radio"
+                  name="level"
+                  class="tab"
+                  aria-label="Level 3"
+                />
+                <div class="tab-content border-base-300 bg-base-100 p-10">
+                  <table class="table table-zebra">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Question</th>
+                        <th>Duration</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% const lvl3Quiz = quizzes.filter((item)=> item.category
+                      == "level3"); for(var i = 0; i < lvl3Quiz.length;i++){%>
+                      <tr>
+                        <th><%= i+1 %></th>
+                        <td><%= lvl3Quiz[i].title %></td>
+                        <td><%= lvl3Quiz[i].questions.length %></td>
+                        <td><%= lvl3Quiz[i].durationMinutes %> Min</td>
+                        <td>
+                          <a
+                            href="/user/takeQuiz/<%= lvl3Quiz[i]._id %>"
+                            class="btn btn-sm btn-primary"
+                            >Take Quiz</a
+                          >
+                        </td>
+                      </tr>
+                      <%}%>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>

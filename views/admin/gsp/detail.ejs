@@ -79,10 +79,8 @@
   <script src="/javascripts/jquery-3.7.1.min.js"></script>
   <script>
     $(function () {
-      const mmVal =
-        "<div><div class='text-lg text-center'>MM Content</div><%- gsp.mmContent %></div>";
-      const enVal =
-        "<div><div class='text-lg text-center'>EN Content</div><%- gsp.enContent %></div>";
+      const mmVal = `<div><div class='text-lg text-center'>MM Content</div><%- gsp.mmContent %></div>`;
+      const enVal = `<div><div class='text-lg text-center'>EN Content</div><%- gsp.enContent %></div>`;
       $("#mmContent").html(mmVal);
       $("#enContent").html(enVal);
     });

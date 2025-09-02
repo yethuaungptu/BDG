@@ -4,10 +4,17 @@ var Quiz = require("../models/Quiz");
 var moment = require("moment-timezone");
 
 router.get("/", async function (req, res) {
-  const quiz = await Quiz.find({ isDeleted: false }).sort({ created: -1 });
+  var query = { isDeleted: false };
+  var filterValue = "";
+  if (req.query.category) {
+    filterValue = req.query.category;
+    query = { category: filterValue, isDeleted: false };
+  }
+  const quiz = await Quiz.find(query).sort({ created: -1 });
   res.render("admin/quiz/index", {
     __: res.__,
     quiz: quiz,
+    filterValue: filterValue,
   });
 });
 

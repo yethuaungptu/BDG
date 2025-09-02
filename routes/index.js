@@ -102,7 +102,9 @@ router.get("/resolution", async function (req, res, next) {
     keyword = req.query.keyword;
     query.titleMM = { $regex: req.query.keyword, $options: "i" };
   }
-  const resolutions = await ResolutionTable.find(query);
+  const resolutions = await ResolutionTable.find(query).sort({
+    created: -1,
+  });
   res.render("resolution", {
     __: res.__,
     resolutions: resolutions,
