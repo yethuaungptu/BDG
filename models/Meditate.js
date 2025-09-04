@@ -69,11 +69,11 @@ const MeditateSchema = new Schema({
   },
   created: {
     type: Date,
-    default: moment.utc(Date.now()).tz("Asia/Yangon").format(),
+    default: Date.now(),
   },
   updated: {
     type: Date,
-    default: moment.utc(Date.now()).tz("Asia/Yangon").format(),
+    default: Date.now(),
   },
 });
 
