@@ -69,11 +69,11 @@ const MeditateSchema = new Schema({
   },
   created: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   updated: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 

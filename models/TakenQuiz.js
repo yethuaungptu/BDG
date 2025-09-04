@@ -55,7 +55,7 @@ const TakeQuizSchema = new Schema({
   },
   created: {
     type: Date,
-    default: moment.utc(Date.now()).tz("Asia/Yangon").format(),
+    default: Date.now,
   },
   durationTaken: {
     type: String,
