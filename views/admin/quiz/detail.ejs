@@ -108,12 +108,12 @@
               <div class="divider"></div>
               <div class="card-actions justify-end">
                 <button class="btn btn-error" onclick="deleteQuiz()">
-                  Delete
+                  <%= __('delete') %>
                 </button>
                 <a
                   class="btn btn-info"
                   href="/admin/quiz/update/<%= quiz._id %>"
-                  >Update</a
+                  ><%= __('update') %></a
                 >
               </div>
             </div>
