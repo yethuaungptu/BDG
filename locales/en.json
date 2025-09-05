@@ -43,6 +43,12 @@
   "detail": "Detail",
   "delete": "Delete",
   "diploma": "Suta Dhamma Diploma",
+  "timer": "Login to take timer",
+  "join": "Login to join resolution",
+  "login": "Login",
+  "takeAQuiz": "Take a Quiz",
+  "takeQuiz": "Take Quiz",
+  "joined": "Go To My Joined Resolution",
   "1": "Level-1",
   "2": "Level-2",
   "3": "Level-3"

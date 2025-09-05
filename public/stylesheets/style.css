@@ -3287,9 +3287,6 @@
       grid-auto-flow: row dense;
     }
   }
-  .grid-flow-col {
-    grid-auto-flow: column;
-  }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -3514,9 +3511,6 @@
   }
   .mask-circle {
     --tw-mask-radial-shape: circle;
-  }
-  .fill-current {
-    fill: currentcolor;
   }
   .stroke-current {
     stroke: currentcolor;
