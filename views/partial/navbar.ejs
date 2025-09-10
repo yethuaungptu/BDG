@@ -17,10 +17,10 @@
           />
         </svg>
       </button>
-      <a href="/" class="btn btn-ghost text-xl text-secondary lg:hidden">BDG</a>
+      <a href="/" class="btn btn-ghost text-xl text-primary-content lg:hidden">BDG</a>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content text-secondary bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+        class="menu menu-sm dropdown-content text-primary-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
       >
         <li><a href="/"><%= __('nav.home') %></a></li>
         <li>
@@ -58,12 +58,12 @@
       </ul>
       
     </div>
-    <a href="/" class="btn btn-ghost btn-primary text-xl hidden lg:flex text-secondary"
+    <a href="/" class="btn btn-ghost btn-primary text-xl hidden lg:flex text-primary-content"
         ><%= __('title') %>
       </a>
   </div>
   <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal text-secondary px-1">
+    <ul class="menu menu-horizontal text-primary-content px-1">
       <li><a href="/"><%= __('nav.home') %></a></li>
       <li>
         <details >
@@ -103,13 +103,13 @@
     <% if(locals.isAuthenticated){%>
     <a
       href="/auth/logout"
-      class="btn btn-outline text-secondary btn-ghost btn-primary"
+      class="btn btn-outline text-primary-content btn-ghost btn-primary"
       ><%= __('nav.logout') %></a
     >
     <%}else{%>
     <a
       href="/auth/login"
-      class="btn btn-outline text-secondary btn-ghost btn-primary"
+      class="btn btn-outline text-primary-content btn-ghost btn-primary"
       ><%= __('nav.account') %></a
     >
     <%}%>
