@@ -29,6 +29,9 @@ const GSPSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  mp3File: {
+    type: String,
+  },
   created: {
     type: Date,
     default: Date.now,

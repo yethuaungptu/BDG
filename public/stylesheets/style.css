@@ -2554,6 +2554,9 @@
   .mx-2 {
     margin-inline: calc(var(--spacing) * 2);
   }
+  .mx-3 {
+    margin-inline: calc(var(--spacing) * 3);
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -3320,6 +3323,9 @@
   .justify-end {
     justify-content: flex-end;
   }
+  .justify-start {
+    justify-content: flex-start;
+  }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
@@ -3678,9 +3684,6 @@
   }
   .text-red-500 {
     color: var(--color-red-500);
-  }
-  .text-secondary {
-    color: var(--color-secondary);
   }
   .text-white {
     color: var(--color-white);

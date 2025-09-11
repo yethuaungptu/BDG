@@ -50,6 +50,12 @@
                 <div id="mmContent" class="border mx-2 rounded-lg px-2"></div>
                 <div id="enContent" class="border mx-2 rounded-lg px-2"></div>
               </div>
+              <% if(gsp.mp3File){%>
+              <audio controls autoplay>
+                <source src="<%= gsp.mp3File %>" type="audio/mp3" />
+                Your browser does not support the audio element.
+              </audio>
+              <%}%>
               <div class="divider"></div>
               <div class="card-actions justify-end">
                 <% if(gsp.isFeatured){%>

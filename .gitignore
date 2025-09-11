@@ -41,6 +41,7 @@ build/Release
 node_modules/
 jspm_packages/
 public/images/uploads/*
+public/sound/uploads/*
 public/pdf/*
 
 # Snowpack dependency directory (https://snowpack.dev/)

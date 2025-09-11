@@ -2,6 +2,9 @@ var express = require("express");
 var router = express.Router();
 var GSP = require("../models/GSP");
 var moment = require("moment-timezone");
+var multer = require("multer");
+const fs = require("fs");
+const upload = multer({ dest: "public/sound/uploads" });
 
 router.get("/", async function (req, res) {
   var query = { isDeleted: false };
@@ -22,7 +25,7 @@ router.get("/create", function (req, res) {
   res.render("admin/gsp/create", { __: res.__ });
 });
 
-router.post("/create", async function (req, res) {
+router.post("/create", upload.single("mp3File"), async function (req, res) {
   try {
     const gsp = new GSP();
     gsp.titleEN = req.body.titleEN ? req.body.titleEN : "";
@@ -30,6 +33,7 @@ router.post("/create", async function (req, res) {
     gsp.mmContent = req.body.mmContent;
     gsp.enContent = req.body.enContent ? req.body.enContent : "";
     gsp.category = req.body.category;
+    if (req.file) gsp.mp3File = "/sound/uploads/" + req.file.filename;
     await gsp.save();
     res.redirect("/admin/gsp");
   } catch (e) {
@@ -72,7 +76,7 @@ router.get("/update/:id", async function (req, res) {
   }
 });
 
-router.post("/update", async function (req, res) {
+router.post("/update", upload.single("mp3File"), async function (req, res) {
   try {
     const update = {
       titleEN: req.body.titleEN ? req.body.titleEN : "",
@@ -82,6 +86,9 @@ router.post("/update", async function (req, res) {
       category: req.body.category,
       updated: moment.utc(Date.now()).tz("Asia/Yangon").format(),
     };
+    if (req.file) {
+      update.mp3File = "/sound/uploads/" + req.file.filename;
+    }
     await GSP.findByIdAndUpdate(req.body.id, { $set: update });
     res.redirect("/admin/gsp");
   } catch (e) {

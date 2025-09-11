@@ -54,6 +54,7 @@
                   class="p-6 rounded-xl shadow space-y-6"
                   action="/admin/gsp/update"
                   method="post"
+                  enctype="multipart/form-data"
                 >
                 <input type="hidden" name="id" value="<%= gsp._id %>">
                   <div class="form-control my-5">
@@ -89,6 +90,17 @@
                       <option value="သုတ္တန်" <%= gsp.category == 'သုတ္တန်' ? 'selected':'' %>>သုတ္တန်</option>
                       <option value="ဘုရား၀တ်ပြုနည်း" <%= gsp.category == 'ဘုရား၀တ်ပြုနည်း' ? 'selected':'' %>>ဘုရား၀တ်ပြုနည်း</option>
                     </select>
+                  </div>
+                  <div class="form-control">
+                    <label class="label"
+                      ><span class="label-text">Audio File</span></label
+                    >
+                    <input
+                      type="file"
+                      name="mp3File"
+                      class="file-input w-full"
+                      accept="audio/*"
+                    />
                   </div>
                   <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
                     <div class="form-control">

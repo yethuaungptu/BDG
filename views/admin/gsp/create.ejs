@@ -51,6 +51,7 @@
                   class="p-6 rounded-xl shadow space-y-6"
                   action="/admin/gsp/create"
                   method="post"
+                  enctype="multipart/form-data"
                 >
                   <div class="form-control my-5">
                     <label class="label">
@@ -83,6 +84,17 @@
                       <option value="သုတ္တန်">သုတ္တန်</option>
                       <option value="ဘုရား၀တ်ပြုနည်း">ဘုရား၀တ်ပြုနည်း</option>
                     </select>
+                  </div>
+                  <div class="form-control">
+                    <label class="label"
+                      ><span class="label-text">Audio File</span></label
+                    >
+                    <input
+                      type="file"
+                      name="mp3File"
+                      class="file-input w-full"
+                      accept="audio/*"
+                    />
                   </div>
                   <div class="form-control my-5">
                     <label class="label">
